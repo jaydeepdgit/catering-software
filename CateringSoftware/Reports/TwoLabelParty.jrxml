@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" printOrder="Horizontal" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="282" leftMargin="15" rightMargin="15" topMargin="37" bottomMargin="37" uuid="ca343c75-1cfd-4d0a-9661-b8bb2aa0ea7b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="address1" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="mobile_no1" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<detail>
+		<band height="96">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="dd814b3c-c182-40f5-b6d4-9e1346ce434e" stretchType="RelativeToTallestObject" x="1" y="0" width="280" height="18"/>
+				<box topPadding="0" leftPadding="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="7c19d63f-310b-4b4c-b074-a7ea60c6fca9" stretchType="RelativeToTallestObject" x="1" y="18" width="280" height="35"/>
+				<box topPadding="0" leftPadding="10"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address1} + " " + $F{address2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="526828b9-84f5-4f66-bed9-0982ba2f55b8" stretchType="RelativeToTallestObject" x="1" y="53" width="280" height="19"/>
+				<box topPadding="0" leftPadding="10"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{mobile_no1}.equalsIgnoreCase("") ? "" : "Mob. : "+$F{mobile_no1})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

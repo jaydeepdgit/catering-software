@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GeneralLedger" pageWidth="566" pageHeight="277" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="554" leftMargin="3" rightMargin="9" topMargin="0" bottomMargin="13" isFloatColumnFooter="true" uuid="49055b78-f816-45d7-aa79-57ab5da2de38">
+	<property name="ireport.zoom" value="1.3310000000000084"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="word" class="java.lang.String"/>
+	<parameter name="dir" class="java.lang.String"/>
+	<parameter name="digit" class="java.lang.String"/>
+	<parameter name="cname" class="java.lang.String"/>
+	<parameter name="cadd1" class="java.lang.String"/>
+	<parameter name="cadd2" class="java.lang.String"/>
+	<parameter name="cmobno" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="party_name" class="java.lang.String"/>
+	<field name="cheque_date" class="java.lang.String"/>
+	<field name="amount" class="java.lang.Double"/>
+	<field name="cheque_no" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="ac_pay" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="247" splitType="Stretch">
+			<textField>
+				<reportElement uuid="88d9861d-4d51-42b3-bf87-860b626ddd87" x="74" y="51" width="415" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{party_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="88d9861d-4d51-42b3-bf87-860b626ddd87" x="104" y="74" width="340" height="30"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{word}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="88d9861d-4d51-42b3-bf87-860b626ddd87" x="444" y="93" width="104" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new com.ibm.icu.text.DecimalFormat(" #,##,##0.00").format($F{amount}) + " /-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="541" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(3, 4)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="527" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(2, 3)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="513" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(1, 2)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="498" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(0, 1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="483" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(6, 7)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="468" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(5, 6)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="452" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(9, 10)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a7792d-69de-437d-83c5-2cc981601c38" x="438" y="12" width="14" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_date}.substring(8, 9)]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="5d784a9a-4899-4393-8c9b-1c7220aa11cd" x="15" y="3" width="36" height="30">
+					<printWhenExpression><![CDATA[($F{ac_pay} == 1 ? true : false)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{dir}+"//Resources//Images//ac_pay.png"]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+</jasperReport>
