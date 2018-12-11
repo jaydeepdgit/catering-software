@@ -131,8 +131,8 @@ public class AccountMasterList extends javax.swing.JInternalFrame {
             }
         }
         try {
-            sql = "SELECT a.id, a.name, g.name AS group_name, a.opening_rs, a.account_effect_rs, a.mobile_no1, a.phone_no1, a.fax_no, " +
-                "a.email_id, a.address1, a.address2, a.contact_prsn, a.refby, a.shortname, a.gst_no " +
+            sql = "SELECT a.id, a.name, g.name AS group_name, a.opening_rs, a.account_effect_rs, a.mobile_no, a.phone_no, a.fax_no, " +
+                "a.email_id, a.office_address1, a.office_address2, a.contact_person, a.reference_by, a.short_name, a.gst_no " +
                 "FROM account_master a LEFT JOIN account_type g ON a.fk_account_type_id = g.id " +
                 "WHERE a.fk_account_type_id = g.id ";
             if(!ac_cd.equalsIgnoreCase("")) {
@@ -494,11 +494,11 @@ public class AccountMasterList extends javax.swing.JInternalFrame {
                     row.add(true);
                     row.add(rsLocal.getString("name"));
                     row.add(rsLocal.getString("group_name"));
-                    row.add(rsLocal.getString("address1") +" "+ rsLocal.getString("address2"));
-                    row.add(rsLocal.getString("mobile_no1"));
+                    row.add(rsLocal.getString("office_address1") +" "+ rsLocal.getString("office_address2"));
+                    row.add(rsLocal.getString("mobile_no"));
                     row.add(rsLocal.getString("email_id"));
-                    row.add(rsLocal.getString("contact_prsn"));
-                    row.add(rsLocal.getString("refby"));
+                    row.add(rsLocal.getString("contact_person"));
+                    row.add(rsLocal.getString("reference_by"));
                     row.add(rsLocal.getString("id"));
                     model.addRow(row);
                 }

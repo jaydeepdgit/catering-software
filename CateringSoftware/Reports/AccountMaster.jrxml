@@ -8,15 +8,15 @@
 	<field name="group_name" class="java.lang.String"/>
 	<field name="opening_rs" class="java.lang.Double"/>
 	<field name="account_effect_rs" class="java.lang.Integer"/>
-	<field name="mobile_no1" class="java.lang.String"/>
-	<field name="phone_no1" class="java.lang.String"/>
+	<field name="mobile_no" class="java.lang.String"/>
+	<field name="phone_no" class="java.lang.String"/>
 	<field name="fax_no" class="java.lang.String"/>
 	<field name="email_id" class="java.lang.String"/>
-	<field name="address1" class="java.lang.String"/>
-	<field name="address2" class="java.lang.String"/>
-	<field name="contact_prsn" class="java.lang.String"/>
-	<field name="refby" class="java.lang.String"/>
-	<field name="shortname" class="java.lang.String"/>
+	<field name="office_address1" class="java.lang.String"/>
+	<field name="office_address2" class="java.lang.String"/>
+	<field name="contact_person" class="java.lang.String"/>
+	<field name="reference_by" class="java.lang.String"/>
+	<field name="short_name" class="java.lang.String"/>
 	<group name="group_name">
 		<groupExpression><![CDATA[$F{group_name}]]></groupExpression>
 		<groupHeader>
@@ -187,7 +187,7 @@
 					<font fontName="Arial" size="10"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{mobile_no1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{mobile_no}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement uuid="a9007de8-ddd0-4fa2-a8f7-7c14c7ad23bc" stretchType="RelativeToTallestObject" x="377" y="0" width="132" height="20"/>
@@ -217,7 +217,7 @@
 					<font fontName="Arial" size="10"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{address1} + " " + $F{address2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{office_address1} + " " + $F{office_address2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement uuid="a9007de8-ddd0-4fa2-a8f7-7c14c7ad23bc" stretchType="RelativeToTallestObject" x="509" y="0" width="56" height="20"/>
@@ -232,7 +232,7 @@
 					<font fontName="Arial" size="10"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{refby}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{reference_by}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -67,6 +67,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         tableForView();
         setPickListView();
         setTitle(Constants.ACCOUNT_MASTER_FORM_NAME);
+        lb.setStatusComboBox(jcmbStatus);
     }
 
     private void setEnableLockDate(boolean flag) {
@@ -263,40 +264,44 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         String sql = "";
         try {
             if (navLoad.getMode().equalsIgnoreCase("N")) {
-                sql = "INSERT INTO account_master(name, fk_account_type_id, account_effect_rs, opening_rs, maximum_rs, minimum_rs, "+
-                    "lock_date, mobile_no1, phone_no1, fax_no, email_id, address1, address2, contact_prsn, refby, shortname, "+
-                    "gst_no, pan_no, user_cd, edit_no, id) "+
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
+                sql = "INSERT INTO account_master(name, fk_account_type_id, opening_rs, account_effect_rs, maximum_rs, minimum_rs, "+
+                    "reference_by, short_name, contact_person, home_address1, home_address2, office_address1, office_address2, "+
+                    "email_id, mobile_no, phone_no, fax_no, fk_status_id, lock_date, gst_no, pan_no, user_cd, edit_no, id) "+
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
                 id = lb.generateKey("account_master", "id", Constants.ACCOUNT_MASTER_INITIAL, 7);
                 dataConnection.setAutoCommit(false);
             } else if (navLoad.getMode().equalsIgnoreCase("E")) {
                 dataConnection.setAutoCommit(false);
-                sql = "UPDATE account_master SET name = ?, fk_account_type_id = ?, account_effect_rs = ?, opening_rs = ?, "+
-                    "maximum_rs = ?, minimum_rs = ?, lock_date = ?, mobile_no1 = ?, phone_no1 = ?, fax_no = ?, email_id = ?, "+
-                    "address1 = ?, address2 = ?, contact_prsn = ?, refby = ?, shortname = ?, gst_no = ?, pan_no = ?, user_cd = ?, "+
+                sql = "UPDATE account_master SET name = ?, fk_account_type_id = ?, opening_rs = ?, account_effect_rs = ?, "+
+                    "maximum_rs = ?, minimum_rs = ?, reference_by = ?, short_name = ?, contact_person = ?, home_address1 = ?, "+
+                    "home_address2 = ?, office_address1 = ?, office_address2 = ?, email_id = ?, mobile_no = ?, phone_no = ?, "+
+                    "fax_no = ?, gst_no = ?, pan_no = ?, fk_status_id = ?, lock_date = ?, user_cd = ?, "+
                     "edit_no = edit_no + 1, time_stamp = CURRENT_TIMESTAMP WHERE id = ?";
             }
             PreparedStatement pstLocal = dataConnection.prepareStatement(sql);
             pstLocal.setString(1, jtxtAccountName.getText().toUpperCase()); // name
             pstLocal.setString(2, lb.getAccountType(jtxtAccountType.getText(), "c")); // fk_account_type_id
-            pstLocal.setString(3, jcmbRs.getSelectedIndex() + ""); // fk_account_type_id
-            pstLocal.setDouble(4, lb.replaceAll(jtxtOPBRs.getText())); // opening_rs
+            pstLocal.setDouble(3, lb.replaceAll(jtxtOPBRs.getText())); // opening_rs
+            pstLocal.setString(4, jcmbRs.getSelectedIndex() + ""); // fk_account_type_id
             pstLocal.setDouble(5, lb.replaceAll(jtxtMaxRs.getText())); // maximum_rs
             pstLocal.setDouble(6, lb.replaceAll(jtxtMinRs.getText())); // minimum_rs
-            pstLocal.setString(7, lb.ConvertDateFormetForDB(jtxtLockDate.getText())); // lock_date
-            pstLocal.setString(8, jtxtMobile.getText()); // mobile_no1
-            pstLocal.setString(9, jtxtPhone.getText()); // phone_no1
-            pstLocal.setString(10, jtxtFaxNo.getText()); // fax_no
-            pstLocal.setString(11, jtxtEmail1.getText()); // email_id
-            pstLocal.setString(12, jtxtAddress1.getText()); // address1
-            pstLocal.setString(13, jtxtAddress2.getText()); // address2
-            pstLocal.setString(14, jtxtContactName.getText()); // contact_prsn
-            pstLocal.setString(15, jtxtReferenceName.getText()); // refby
-            pstLocal.setString(16, jtxtShortName.getText()); // shortname
-            pstLocal.setString(17, jtxtGSTNo.getText()); // gst_no
-            pstLocal.setString(18, jtxtPanNo.getText()); // pan_no
-            pstLocal.setInt(19, DeskFrame.user_id); // user_cd
-            pstLocal.setString(20, id); // id
+            pstLocal.setString(7, jtxtReferenceName.getText()); // reference_by
+            pstLocal.setString(8, jtxtShortName.getText()); // short_name
+            pstLocal.setString(9, jtxtContactName.getText()); // contact_person
+            pstLocal.setString(10, jtxtHomeAddress1.getText()); // home_address1
+            pstLocal.setString(11, jtxtHomeAddress2.getText()); // home_address2
+            pstLocal.setString(12, jtxtOfficeAddress1.getText()); // office_address1
+            pstLocal.setString(13, jtxtOfficeAddress2.getText()); // office_address2
+            pstLocal.setString(14, jtxtEmail.getText()); // email_id
+            pstLocal.setString(15, jtxtMobile.getText()); // mobile_no
+            pstLocal.setString(16, jtxtPhone.getText()); // phone_no
+            pstLocal.setString(17, jtxtFaxNo.getText()); // fax_no
+            pstLocal.setString(18, jtxtGSTNo.getText()); // gst_no
+            pstLocal.setString(19, jtxtPanNo.getText()); // pan_no
+            pstLocal.setString(20, lb.getStatusData(jcmbStatus.getSelectedItem().toString(), "C")); // status
+            pstLocal.setString(21, lb.ConvertDateFormetForDB(jtxtLockDate.getText())); // lock_date
+            pstLocal.setInt(22, DeskFrame.user_id); // user_cd
+            pstLocal.setString(23, id); // id
             i = pstLocal.executeUpdate();
             if (pstLocal != null) {
                 pstLocal.close();
@@ -335,11 +340,12 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         jtxtReferenceName.setText("");
         jtxtShortName.setText("");
         jtxtContactName.setText("");
-        jtxtAddress1.setText("");
-        jtxtAddress2.setText("");
-        jtxtEmail1.setText("");
+        jtxtOfficeAddress1.setText("");
+        jtxtOfficeAddress2.setText("");
+        jtxtHomeAddress1.setText("");
+        jtxtHomeAddress2.setText("");
+        jtxtEmail.setText("");
         jtxtFaxNo.setText("");
-        jtxtPincode.setText("");
         jtxtMobile.setText("");
         jtxtPhone.setText("");
         jtxtLockDate.setText("");
@@ -462,13 +468,27 @@ public class AccountMaster extends javax.swing.JInternalFrame {
             public void setComponentTextFromResultSet() {
                 try {
                     id = viewData.getString("id");
-                    jtxtAccountName.setText(viewData.getString("name"));
                     jtxtAccountCD.setText(id);
+                    jtxtAccountName.setText(viewData.getString("name"));
                     jtxtAccountType.setText(lb.getAccountType(viewData.getString("fk_account_type_id"), "N"));
                     jtxtOPBRs.setText(lb.getIndianFormat(viewData.getDouble("opening_rs")));
+                    jcmbRs.setSelectedIndex(viewData.getInt("account_effect_rs"));
                     jtxtMaxRs.setText(lb.getIndianFormat(viewData.getDouble("maximum_rs")));
                     jtxtMinRs.setText(lb.getIndianFormat(viewData.getDouble("minimum_rs")));
-                    jcmbRs.setSelectedIndex(viewData.getInt("account_effect_rs"));
+                    jtxtReferenceName.setText(viewData.getString("reference_by"));
+                    jtxtShortName.setText(viewData.getString("short_name"));
+                    jtxtContactName.setText(viewData.getString("contact_person"));
+                    jtxtHomeAddress1.setText(viewData.getString("home_address1"));
+                    jtxtHomeAddress2.setText(viewData.getString("home_address2"));
+                    jtxtOfficeAddress1.setText(viewData.getString("office_address1"));
+                    jtxtOfficeAddress2.setText(viewData.getString("office_address2"));
+                    jtxtEmail.setText(viewData.getString("email_id"));
+                    jtxtMobile.setText(viewData.getString("mobile_no"));
+                    jtxtPhone.setText(viewData.getString("phone_no"));
+                    jtxtFaxNo.setText(viewData.getString("fax_no"));
+                    jtxtGSTNo.setText(viewData.getString("gst_no"));
+                    jtxtPanNo.setText(viewData.getString("pan_no"));
+                    jcmbStatus.setSelectedItem(lb.getStatusData(viewData.getInt("fk_status_id")+"", "N") );
                     jlblEditNo.setText(viewData.getString("edit_no"));
                     jlblUserName.setText(lb.getUserName(viewData.getString("user_cd"), "N"));
                     if (viewData.getString("lock_date") != null) {
@@ -476,18 +496,6 @@ public class AccountMaster extends javax.swing.JInternalFrame {
                     } else {
                         lb.setDateChooserProperty(jtxtLockDate);
                     }
-
-                    jtxtContactName.setText(viewData.getString("contact_prsn"));
-                    jtxtAddress1.setText(viewData.getString("address1"));
-                    jtxtAddress2.setText(viewData.getString("address2"));
-                    jtxtMobile.setText(viewData.getString("mobile_no1"));
-                    jtxtPhone.setText(viewData.getString("phone_no1"));
-                    jtxtFaxNo.setText(viewData.getString("fax_no"));
-                    jtxtEmail1.setText(viewData.getString("email_id"));
-                    jtxtReferenceName.setText(viewData.getString("refby"));
-                    jtxtShortName.setText(viewData.getString("shortname"));
-                    jtxtGSTNo.setText(viewData.getString("gst_no"));
-                    jtxtPanNo.setText(viewData.getString("pan_no"));
                 } catch (Exception ex) {
                     lb.printToLogFile("Exception at setComponentTextFromResultSet In Account Master", ex);
                 }
@@ -504,16 +512,18 @@ public class AccountMaster extends javax.swing.JInternalFrame {
                 jcmbRs.setEnabled(flag);
                 jtxtReferenceName.setEnabled(flag);
                 jtxtContactName.setEnabled(flag);
-                jtxtAddress1.setEnabled(flag);
-                jtxtAddress2.setEnabled(flag);
-                jtxtEmail1.setEnabled(flag);
-                jtxtPincode.setEnabled(flag);
+                jtxtOfficeAddress1.setEnabled(flag);
+                jtxtOfficeAddress2.setEnabled(flag);
+                jtxtHomeAddress1.setEnabled(flag);
+                jtxtHomeAddress2.setEnabled(flag);
+                jtxtEmail.setEnabled(flag);
                 jtxtMobile.setEnabled(flag);
                 jtxtPhone.setEnabled(flag);
                 jtxtFaxNo.setEnabled(flag);
                 jtxtShortName.setEnabled(flag);
                 jtxtGSTNo.setEnabled(flag);
                 jtxtPanNo.setEnabled(flag);
+                jcmbStatus.setEnabled(flag);
                 jtxtLockDate.setEnabled(flag);
             }
         }
@@ -533,17 +543,15 @@ public class AccountMaster extends javax.swing.JInternalFrame {
 
         jpanelNavigation = new javax.swing.JPanel();
         jPanelContact = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jtxtContactName = new javax.swing.JTextField();
-        jtxtAddress1 = new javax.swing.JTextField();
-        jtxtAddress2 = new javax.swing.JTextField();
-        jtxtPincode = new javax.swing.JTextField();
+        jtxtOfficeAddress1 = new javax.swing.JTextField();
+        jtxtOfficeAddress2 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jtxtMobile = new javax.swing.JTextField();
-        jtxtEmail1 = new javax.swing.JTextField();
+        jtxtEmail = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jtxtPhone = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
@@ -552,6 +560,11 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         jtxtGSTNo = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jtxtPanNo = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jtxtHomeAddress1 = new javax.swing.JTextField();
+        jtxtHomeAddress2 = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jcmbStatus = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jtxtAccountCD = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -591,11 +604,8 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         jPanelContact.setBackground(new java.awt.Color(215, 227, 208));
         jPanelContact.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(53, 154, 141)), "Contact Details", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 2, 16), new java.awt.Color(235, 35, 35))); // NOI18N
 
-        jLabel20.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel20.setText("Pincode");
-
         jLabel23.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel23.setText("Address");
+        jLabel23.setText("Office Address");
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel24.setText("Contact Person");
@@ -619,51 +629,35 @@ public class AccountMaster extends javax.swing.JInternalFrame {
             }
         });
 
-        jtxtAddress1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtxtAddress1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
-        jtxtAddress1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jtxtOfficeAddress1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtOfficeAddress1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jtxtOfficeAddress1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jtxtAddress1FocusGained(evt);
+                jtxtOfficeAddress1FocusGained(evt);
             }
         });
-        jtxtAddress1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtxtOfficeAddress1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtxtAddress1KeyPressed(evt);
+                jtxtOfficeAddress1KeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtAddress1KeyTyped(evt);
+                jtxtOfficeAddress1KeyTyped(evt);
             }
         });
 
-        jtxtAddress2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtxtAddress2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
-        jtxtAddress2.addFocusListener(new java.awt.event.FocusAdapter() {
+        jtxtOfficeAddress2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtOfficeAddress2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jtxtOfficeAddress2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jtxtAddress2FocusGained(evt);
+                jtxtOfficeAddress2FocusGained(evt);
             }
         });
-        jtxtAddress2.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtxtOfficeAddress2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtxtAddress2KeyPressed(evt);
+                jtxtOfficeAddress2KeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtAddress2KeyTyped(evt);
-            }
-        });
-
-        jtxtPincode.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtxtPincode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
-        jtxtPincode.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtxtPincodeFocusGained(evt);
-            }
-        });
-        jtxtPincode.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtxtPincodeKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtPincodeKeyTyped(evt);
+                jtxtOfficeAddress2KeyTyped(evt);
             }
         });
 
@@ -689,19 +683,19 @@ public class AccountMaster extends javax.swing.JInternalFrame {
             }
         });
 
-        jtxtEmail1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtxtEmail1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
-        jtxtEmail1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jtxtEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jtxtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jtxtEmail1FocusGained(evt);
+                jtxtEmailFocusGained(evt);
             }
         });
-        jtxtEmail1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtxtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtxtEmail1KeyPressed(evt);
+                jtxtEmailKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtEmail1KeyTyped(evt);
+                jtxtEmailKeyTyped(evt);
             }
         });
 
@@ -781,89 +775,136 @@ public class AccountMaster extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel29.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel29.setText("Home Address");
+
+        jtxtHomeAddress1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtHomeAddress1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jtxtHomeAddress1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtHomeAddress1FocusGained(evt);
+            }
+        });
+        jtxtHomeAddress1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtHomeAddress1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtHomeAddress1KeyTyped(evt);
+            }
+        });
+
+        jtxtHomeAddress2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtHomeAddress2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jtxtHomeAddress2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtHomeAddress2FocusGained(evt);
+            }
+        });
+        jtxtHomeAddress2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtHomeAddress2KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtHomeAddress2KeyTyped(evt);
+            }
+        });
+
+        jLabel32.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel32.setText("Status");
+
+        jcmbStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Deactive" }));
+        jcmbStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jcmbStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcmbStatusKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelContactLayout = new javax.swing.GroupLayout(jPanelContact);
         jPanelContact.setLayout(jPanelContactLayout);
         jPanelContactLayout.setHorizontalGroup(
             jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelContactLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jtxtOfficeAddress2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                    .addComponent(jtxtOfficeAddress1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtHomeAddress2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtHomeAddress1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtContactName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtEmail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtContactName, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtGSTNo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelContactLayout.createSequentialGroup()
-                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelContactLayout.createSequentialGroup()
-                        .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtxtFaxNo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtPanNo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelContactLayout.createSequentialGroup()
-                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelContactLayout.createSequentialGroup()
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtPincode, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jtxtPhone, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jtxtMobile, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jtxtFaxNo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jtxtGSTNo)
+                    .addComponent(jcmbStatus, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtxtPanNo, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
 
-        jPanelContactLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jtxtAddress1, jtxtAddress2, jtxtContactName, jtxtEmail1, jtxtGSTNo});
+        jPanelContactLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel23, jLabel24, jLabel37});
 
         jPanelContactLayout.setVerticalGroup(
             jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelContactLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(7, 7, 7)
                 .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jtxtContactName)
-                    .addComponent(jLabel20)
-                    .addComponent(jtxtPincode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtContactName, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23)
-                    .addComponent(jtxtAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26)
-                    .addComponent(jtxtMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtHomeAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtHomeAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtFaxNo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28)
-                    .addComponent(jtxtFaxNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtGSTNo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtOfficeAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel37)
-                    .addComponent(jtxtGSTNo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtPanNo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jtxtPanNo)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jtxtOfficeAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7))
         );
 
-        jPanelContactLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel20, jLabel23, jLabel24, jLabel25, jLabel26, jLabel27, jLabel28, jtxtAddress1, jtxtAddress2, jtxtContactName, jtxtEmail1, jtxtFaxNo, jtxtMobile, jtxtPhone, jtxtPincode});
+        jPanelContactLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel23, jLabel24, jLabel25, jLabel26, jLabel27, jLabel28, jLabel29, jLabel37, jLabel38, jtxtContactName, jtxtEmail, jtxtFaxNo, jtxtGSTNo, jtxtHomeAddress1, jtxtHomeAddress2, jtxtMobile, jtxtOfficeAddress1, jtxtOfficeAddress2, jtxtPanNo, jtxtPhone});
 
-        jPanelContactLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel37, jLabel38, jtxtGSTNo, jtxtPanNo});
+        jPanelContactLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel32, jcmbStatus});
 
         jPanel1.setBackground(new java.awt.Color(253, 243, 243));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(235, 35, 35)), "Account Information", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 2, 16), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -1054,39 +1095,36 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtMaxRs, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtOPBRs, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtAccountName, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtAccountCD, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtReferenceName, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtAccountCD, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jtxtAccountName, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jtxtOPBRs, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jtxtMaxRs, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jtxtReferenceName, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jtxtAccountType, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jcmbRs, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtxtMinRs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jtxtShortName, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(130, Short.MAX_VALUE))
+                    .addComponent(jtxtAccountType, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jcmbRs, 0, 362, Short.MAX_VALUE)
+                    .addComponent(jtxtMinRs, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jtxtShortName, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel30, jLabel4, jLabel5, jLabel6, jLabel7, jLabel8});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jtxtAccountCD, jtxtAccountName, jtxtMaxRs, jtxtOPBRs, jtxtReferenceName});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1094,42 +1132,37 @@ public class AccountMaster extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtAccountCD, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                    .addComponent(jtxtAccountType, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtxtAccountName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jtxtAccountCD, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcmbRs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jtxtAccountName, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jtxtAccountType, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcmbRs, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtOPBRs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtOPBRs, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtMinRs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtMaxRs, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtMaxRs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtMinRs, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtxtShortName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jtxtReferenceName, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jtxtReferenceName, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jtxtAccountType});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel3, jtxtAccountName, jtxtAccountType});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, jtxtAccountName});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel30, jLabel4, jtxtOPBRs, jtxtReferenceName});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel31, jLabel6, jcmbRs});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel30, jLabel31, jLabel4, jLabel6, jcmbRs, jtxtOPBRs, jtxtReferenceName, jtxtShortName});
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel8, jtxtAccountCD});
 
@@ -1174,7 +1207,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1190,17 +1223,12 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtLockDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlblEditNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jlblUserName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(7, 7, 7))
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+            .addComponent(jlblEditNo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jtxtLockDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel18, jtxtLockDate});
@@ -1239,9 +1267,9 @@ public class AccountMaster extends javax.swing.JInternalFrame {
 
 private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAccountTypeKeyReleased
     try {
-        PreparedStatement pstLocal = dataConnection.prepareStatement("SELECT name FROM account_type WHERE name LIKE '%" + jtxtAccountType.getText().toUpperCase() + "%'");
+        PreparedStatement pstLocal = dataConnection.prepareStatement("SELECT name FROM account_type WHERE name LIKE '%" + jtxtAccountType.getText().toUpperCase() + "%' AND fk_status_id = 1");
         accountTypePickList.setPreparedStatement(pstLocal);
-        accountTypePickList.setValidation(dataConnection.prepareStatement("SELECT name FROM account_type WHERE name = ?"));
+        accountTypePickList.setValidation(dataConnection.prepareStatement("SELECT name FROM account_type WHERE fk_status_id = 1 AND name = ?"));
         accountTypePickList.pickListKeyRelease(evt);
     } catch (Exception ex) {
         lb.printToLogFile("Exception at jtxtAccountTypeKeyReleased In Account Master", ex);
@@ -1277,10 +1305,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtAccountTypeFocusLost
 
     private void jtxtAccountNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAccountNameKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            evt.consume();
-            jtxtAccountType.requestFocusInWindow();
-        }
+        lb.enterEvent(evt, jtxtAccountType);
     }//GEN-LAST:event_jtxtAccountNameKeyPressed
 
     private void jtxtAccountCDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAccountCDFocusGained
@@ -1288,10 +1313,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtAccountCDFocusGained
 
     private void jtxtOPBRsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtOPBRsKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            evt.consume();
-            jcmbRs.requestFocusInWindow();
-        }
+        lb.enterEvent(evt, jcmbRs);
     }//GEN-LAST:event_jtxtOPBRsKeyPressed
 
     private void jtxtAccountCDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAccountCDKeyPressed
@@ -1318,7 +1340,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtLockDateFocusLost
 
     private void jtxtLockDateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtLockDateKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if(lb.isEnter(evt)) {
             evt.consume();
             navLoad.setSaveFocus();
         }
@@ -1339,64 +1361,47 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtContactNameFocusLost
 
     private void jtxtContactNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtContactNameKeyPressed
-        lb.enterFocus(evt, jtxtAddress1);
+        lb.enterFocus(evt, jtxtOfficeAddress1);
     }//GEN-LAST:event_jtxtContactNameKeyPressed
 
-    private void jtxtAddress1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAddress1FocusGained
+    private void jtxtOfficeAddress1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtOfficeAddress1FocusGained
         lb.selectAll(evt);
-    }//GEN-LAST:event_jtxtAddress1FocusGained
+    }//GEN-LAST:event_jtxtOfficeAddress1FocusGained
 
-    private void jtxtAddress1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAddress1KeyPressed
-        lb.enterFocus(evt, jtxtAddress2);
-    }//GEN-LAST:event_jtxtAddress1KeyPressed
+    private void jtxtOfficeAddress1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtOfficeAddress1KeyPressed
+        lb.enterFocus(evt, jtxtOfficeAddress2);
+    }//GEN-LAST:event_jtxtOfficeAddress1KeyPressed
 
-    private void jtxtAddress2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAddress2FocusGained
+    private void jtxtOfficeAddress2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtOfficeAddress2FocusGained
         lb.selectAll(evt);
-    }//GEN-LAST:event_jtxtAddress2FocusGained
+    }//GEN-LAST:event_jtxtOfficeAddress2FocusGained
 
-    private void jtxtAddress2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAddress2KeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jtxtPincode.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_jtxtAddress2KeyPressed
-
-    private void jtxtPincodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtPincodeFocusGained
-        lb.selectAll(evt);
-    }//GEN-LAST:event_jtxtPincodeFocusGained
-
-    private void jtxtPincodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPincodeKeyPressed
-        lb.enterFocus(evt, jtxtMobile);
-    }//GEN-LAST:event_jtxtPincodeKeyPressed
-
-    private void jtxtPincodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPincodeKeyTyped
-        lb.onlyNumber(evt, 10);
-    }//GEN-LAST:event_jtxtPincodeKeyTyped
+    private void jtxtOfficeAddress2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtOfficeAddress2KeyPressed
+        lb.enterEvent(evt, jtxtEmail);
+    }//GEN-LAST:event_jtxtOfficeAddress2KeyPressed
 
     private void jtxtMobileFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtMobileFocusGained
         lb.selectAll(evt);
     }//GEN-LAST:event_jtxtMobileFocusGained
 
     private void jtxtMobileKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMobileKeyPressed
-        lb.enterFocus(evt, jtxtFaxNo);
+        lb.enterFocus(evt, jtxtPhone);
     }//GEN-LAST:event_jtxtMobileKeyPressed
 
     private void jtxtMobileKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMobileKeyTyped
         lb.onlyNumber(evt, 17);
     }//GEN-LAST:event_jtxtMobileKeyTyped
 
-    private void jtxtEmail1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtEmail1FocusGained
+    private void jtxtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtEmailFocusGained
         lb.selectAll(evt);
-    }//GEN-LAST:event_jtxtEmail1FocusGained
+    }//GEN-LAST:event_jtxtEmailFocusGained
 
-    private void jtxtEmail1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmail1KeyPressed
+    private void jtxtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailKeyPressed
         lb.enterFocus(evt, jtxtMobile);
-    }//GEN-LAST:event_jtxtEmail1KeyPressed
+    }//GEN-LAST:event_jtxtEmailKeyPressed
 
     private void jcmbRsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbRsKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            evt.consume();
-            jtxtMaxRs.requestFocusInWindow();
-        }
+        lb.enterEvent(evt, jtxtMaxRs);
     }//GEN-LAST:event_jcmbRsKeyPressed
 
     private void jtxtPhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtPhoneFocusGained
@@ -1404,7 +1409,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtPhoneFocusGained
 
     private void jtxtPhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPhoneKeyPressed
-        lb.enterFocus(evt, jtxtGSTNo);
+        lb.enterFocus(evt, jtxtFaxNo);
     }//GEN-LAST:event_jtxtPhoneKeyPressed
 
     private void jtxtPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPhoneKeyTyped
@@ -1416,7 +1421,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtFaxNoFocusGained
 
     private void jtxtFaxNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFaxNoKeyPressed
-        lb.enterFocus(evt, jtxtPhone);
+        lb.enterFocus(evt, jtxtGSTNo);
     }//GEN-LAST:event_jtxtFaxNoKeyPressed
 
     private void jtxtReferenceNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtReferenceNameFocusGained
@@ -1448,7 +1453,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtPanNoFocusGained
 
     private void jtxtPanNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPanNoKeyPressed
-        lb.enterEvent(evt, jtxtLockDate);
+        lb.enterEvent(evt, jcmbStatus);
     }//GEN-LAST:event_jtxtPanNoKeyPressed
 
     private void jtxtPanNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPanNoKeyTyped
@@ -1470,10 +1475,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtMaxRsFocusLost
 
     private void jtxtMaxRsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMaxRsKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            evt.consume();
-            jtxtMinRs.requestFocusInWindow();
-        }
+        lb.enterEvent(evt, jtxtMinRs);
     }//GEN-LAST:event_jtxtMaxRsKeyPressed
 
     private void jtxtMaxRsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMaxRsKeyTyped
@@ -1491,10 +1493,7 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jtxtMinRsFocusLost
 
     private void jtxtMinRsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMinRsKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            evt.consume();
-            jtxtReferenceName.requestFocusInWindow();
-        }
+        lb.enterEvent(evt, jtxtReferenceName);
     }//GEN-LAST:event_jtxtMinRsKeyPressed
 
     private void jtxtMinRsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMinRsKeyTyped
@@ -1525,17 +1524,17 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
         lb.fixLength(evt, 100);
     }//GEN-LAST:event_jtxtContactNameKeyTyped
 
-    private void jtxtAddress1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAddress1KeyTyped
+    private void jtxtOfficeAddress1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtOfficeAddress1KeyTyped
         lb.fixLength(evt, 255);
-    }//GEN-LAST:event_jtxtAddress1KeyTyped
+    }//GEN-LAST:event_jtxtOfficeAddress1KeyTyped
 
-    private void jtxtAddress2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAddress2KeyTyped
+    private void jtxtOfficeAddress2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtOfficeAddress2KeyTyped
         lb.fixLength(evt, 255);
-    }//GEN-LAST:event_jtxtAddress2KeyTyped
+    }//GEN-LAST:event_jtxtOfficeAddress2KeyTyped
 
-    private void jtxtEmail1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmail1KeyTyped
+    private void jtxtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailKeyTyped
         lb.fixLength(evt, 100);
-    }//GEN-LAST:event_jtxtEmail1KeyTyped
+    }//GEN-LAST:event_jtxtEmailKeyTyped
 
     private void jtxtFaxNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFaxNoKeyTyped
         lb.fixLength(evt, 17);
@@ -1546,20 +1545,49 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
         accountTypePickList.pickListKeyPress(evt);
     }//GEN-LAST:event_jtxtAccountTypeKeyPressed
 
+    private void jtxtHomeAddress1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtHomeAddress1FocusGained
+        lb.selectAll(evt);
+    }//GEN-LAST:event_jtxtHomeAddress1FocusGained
+
+    private void jtxtHomeAddress1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHomeAddress1KeyPressed
+        lb.enterEvent(evt, jtxtHomeAddress2);
+    }//GEN-LAST:event_jtxtHomeAddress1KeyPressed
+
+    private void jtxtHomeAddress1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHomeAddress1KeyTyped
+        lb.fixLength(evt, 255);
+    }//GEN-LAST:event_jtxtHomeAddress1KeyTyped
+
+    private void jtxtHomeAddress2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtHomeAddress2FocusGained
+        lb.selectAll(evt);
+    }//GEN-LAST:event_jtxtHomeAddress2FocusGained
+
+    private void jtxtHomeAddress2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHomeAddress2KeyPressed
+        lb.enterEvent(evt, jtxtOfficeAddress1);
+    }//GEN-LAST:event_jtxtHomeAddress2KeyPressed
+
+    private void jtxtHomeAddress2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHomeAddress2KeyTyped
+        lb.fixLength(evt, 255);
+    }//GEN-LAST:event_jtxtHomeAddress2KeyTyped
+
+    private void jcmbStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbStatusKeyPressed
+        lb.enterEvent(evt, jtxtLockDate);
+    }//GEN-LAST:event_jcmbStatusKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
@@ -1572,26 +1600,28 @@ private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelContact;
     private javax.swing.JComboBox jcmbRs;
+    private javax.swing.JComboBox jcmbStatus;
     private javax.swing.JLabel jlblEditNo;
     private javax.swing.JLabel jlblUserName;
     private javax.swing.JPanel jpanelNavigation;
     private javax.swing.JTextField jtxtAccountCD;
     private javax.swing.JTextField jtxtAccountName;
     private javax.swing.JTextField jtxtAccountType;
-    private javax.swing.JTextField jtxtAddress1;
-    private javax.swing.JTextField jtxtAddress2;
     private javax.swing.JTextField jtxtContactName;
-    private javax.swing.JTextField jtxtEmail1;
+    private javax.swing.JTextField jtxtEmail;
     private javax.swing.JTextField jtxtFaxNo;
     private javax.swing.JTextField jtxtGSTNo;
+    private javax.swing.JTextField jtxtHomeAddress1;
+    private javax.swing.JTextField jtxtHomeAddress2;
     private javax.swing.JTextField jtxtLockDate;
     private javax.swing.JTextField jtxtMaxRs;
     private javax.swing.JTextField jtxtMinRs;
     private javax.swing.JTextField jtxtMobile;
     private javax.swing.JTextField jtxtOPBRs;
+    private javax.swing.JTextField jtxtOfficeAddress1;
+    private javax.swing.JTextField jtxtOfficeAddress2;
     private javax.swing.JTextField jtxtPanNo;
     private javax.swing.JTextField jtxtPhone;
-    public javax.swing.JTextField jtxtPincode;
     private javax.swing.JTextField jtxtReferenceName;
     private javax.swing.JTextField jtxtShortName;
     // End of variables declaration//GEN-END:variables

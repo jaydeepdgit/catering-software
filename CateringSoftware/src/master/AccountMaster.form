@@ -96,111 +96,99 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel29" max="32767" attributes="0"/>
+                      <Component id="jLabel24" linkSize="47" alignment="0" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel23" linkSize="47" alignment="0" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel25" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jLabel25" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel23" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel37" max="32767" attributes="0"/>
-                      <Component id="jLabel24" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jtxtOfficeAddress2" alignment="0" pref="364" max="32767" attributes="0"/>
+                      <Component id="jtxtOfficeAddress1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jtxtHomeAddress2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jtxtHomeAddress1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jtxtContactName" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jtxtEmail" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel37" linkSize="47" alignment="0" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel38" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel27" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel26" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel32" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jtxtContactName" linkSize="46" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtAddress1" linkSize="46" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtAddress2" linkSize="46" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtEmail1" linkSize="46" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtGSTNo" linkSize="46" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
+                      <Component id="jtxtPhone" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jtxtMobile" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jtxtFaxNo" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jtxtGSTNo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jcmbStatus" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jtxtPanNo" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel27" min="-2" pref="91" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jtxtPhone" min="-2" pref="248" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel38" pref="91" max="32767" attributes="0"/>
-                              <Component id="jLabel28" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jtxtFaxNo" min="-2" pref="248" max="-2" attributes="0"/>
-                              <Component id="jtxtPanNo" min="-2" pref="248" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel26" min="-2" pref="91" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jtxtMobile" min="-2" pref="248" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel20" min="-2" pref="91" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jtxtPincode" min="-2" pref="248" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel24" linkSize="30" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jtxtContactName" linkSize="30" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel20" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtxtPincode" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel24" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtContactName" linkSize="30" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jLabel26" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtMobile" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel23" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtxtAddress1" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel26" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtxtMobile" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtxtPhone" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel27" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtHomeAddress1" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel29" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jtxtAddress2" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel27" linkSize="30" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="jtxtPhone" linkSize="30" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="jtxtHomeAddress2" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel28" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtFaxNo" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel25" linkSize="30" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="jtxtEmail1" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel28" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtxtFaxNo" linkSize="30" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtxtGSTNo" linkSize="30" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jLabel37" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtOfficeAddress1" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel23" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel37" linkSize="42" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtxtGSTNo" linkSize="42" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="jLabel38" linkSize="42" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="jtxtPanNo" linkSize="42" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="jtxtPanNo" linkSize="30" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel38" linkSize="30" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jtxtOfficeAddress2" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jtxtEmail" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel25" linkSize="30" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel32" linkSize="42" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jcmbStatus" linkSize="42" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel20">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="14" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Pincode"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel23">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Address"/>
+            <Property name="text" type="java.lang.String" value="Office Address"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel24">
@@ -231,7 +219,7 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtContactNameKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtxtAddress1">
+        <Component class="javax.swing.JTextField" name="jtxtOfficeAddress1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -245,12 +233,12 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtAddress1FocusGained"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtAddress1KeyPressed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtAddress1KeyTyped"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtOfficeAddress1FocusGained"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtOfficeAddress1KeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtOfficeAddress1KeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtxtAddress2">
+        <Component class="javax.swing.JTextField" name="jtxtOfficeAddress2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -264,32 +252,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtAddress2FocusGained"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtAddress2KeyPressed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtAddress2KeyTyped"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtOfficeAddress2FocusGained"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtOfficeAddress2KeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtOfficeAddress2KeyTyped"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jtxtPincode">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="0"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder>
-                  <Color PropertyName="color" blue="98" green="6e" red="4" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtPincodeFocusGained"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtPincodeKeyPressed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtPincodeKeyTyped"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel25">
           <Properties>
@@ -326,7 +292,7 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtMobileKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtxtEmail1">
+        <Component class="javax.swing.JTextField" name="jtxtEmail">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -340,9 +306,9 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtEmail1FocusGained"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtEmail1KeyPressed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtEmail1KeyTyped"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtEmailFocusGained"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtEmailKeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtEmailKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel27">
@@ -453,6 +419,83 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtPanNoKeyTyped"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel29">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Home Address"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtxtHomeAddress1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="98" green="6e" red="4" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtHomeAddress1FocusGained"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtHomeAddress1KeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtHomeAddress1KeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtxtHomeAddress2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="98" green="6e" red="4" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtHomeAddress2FocusGained"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtHomeAddress2KeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtHomeAddress2KeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel32">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Status"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jcmbStatus">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Active"/>
+                <StringItem index="1" value="Deactive"/>
+              </StringArray>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="98" green="6e" red="4" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jcmbStatusKeyPressed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -479,39 +522,37 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="130" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel5" linkSize="13" alignment="1" pref="91" max="32767" attributes="0"/>
-                      <Component id="jLabel4" linkSize="13" alignment="1" pref="72" max="32767" attributes="0"/>
-                      <Component id="jLabel3" linkSize="13" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jLabel8" linkSize="13" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jLabel30" linkSize="13" alignment="1" pref="98" max="32767" attributes="0"/>
+                      <Component id="jLabel5" linkSize="13" alignment="1" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel4" linkSize="13" alignment="1" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel3" linkSize="13" alignment="1" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel8" linkSize="13" alignment="1" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel30" linkSize="13" alignment="1" pref="100" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jtxtMaxRs" linkSize="27" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtOPBRs" linkSize="27" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtAccountName" linkSize="27" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtAccountCD" linkSize="27" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jtxtReferenceName" linkSize="27" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                      <Component id="jtxtAccountCD" alignment="0" pref="362" max="32767" attributes="0"/>
+                      <Component id="jtxtAccountName" alignment="0" pref="362" max="32767" attributes="0"/>
+                      <Component id="jtxtOPBRs" alignment="0" pref="362" max="32767" attributes="0"/>
+                      <Component id="jtxtMaxRs" alignment="0" pref="362" max="32767" attributes="0"/>
+                      <Component id="jtxtReferenceName" alignment="0" pref="362" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel1" linkSize="13" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jLabel6" linkSize="13" alignment="1" pref="72" max="32767" attributes="0"/>
-                      <Component id="jLabel7" linkSize="13" alignment="1" pref="91" max="32767" attributes="0"/>
-                      <Component id="jLabel31" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jLabel1" linkSize="13" alignment="0" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel6" linkSize="13" alignment="0" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel7" linkSize="13" alignment="0" pref="100" max="32767" attributes="0"/>
+                      <Component id="jLabel31" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jtxtAccountType" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                          <Component id="jcmbRs" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
-                          <Component id="jtxtMinRs" alignment="1" min="-2" pref="242" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jtxtShortName" alignment="0" min="-2" pref="242" max="-2" attributes="0"/>
+                      <Component id="jtxtAccountType" alignment="0" pref="362" max="32767" attributes="0"/>
+                      <Component id="jcmbRs" alignment="0" pref="362" max="32767" attributes="0"/>
+                      <Component id="jtxtMinRs" alignment="0" pref="362" max="32767" attributes="0"/>
+                      <Component id="jtxtShortName" alignment="0" pref="362" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="130" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -521,37 +562,35 @@
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel8" linkSize="10" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jtxtAccountCD" linkSize="10" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabel1" linkSize="3" alignment="1" pref="24" max="32767" attributes="0"/>
-                      <Component id="jtxtAccountType" linkSize="3" alignment="1" pref="23" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel3" linkSize="4" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="jtxtAccountName" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jtxtAccountCD" linkSize="10" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jcmbRs" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" linkSize="3" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jtxtAccountName" linkSize="3" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jLabel1" linkSize="3" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jtxtAccountType" linkSize="3" alignment="0" pref="24" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jcmbRs" linkSize="7" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="jLabel6" linkSize="7" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jtxtOPBRs" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" linkSize="5" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtOPBRs" linkSize="7" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel4" linkSize="7" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jtxtMinRs" linkSize="45" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel7" linkSize="45" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jtxtMaxRs" linkSize="45" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" linkSize="45" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtMaxRs" linkSize="45" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel7" linkSize="45" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jtxtMinRs" linkSize="45" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jtxtShortName" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jLabel31" linkSize="7" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jtxtReferenceName" linkSize="5" alignment="0" pref="22" max="32767" attributes="0"/>
-                      <Component id="jLabel30" linkSize="5" alignment="0" pref="21" max="32767" attributes="0"/>
+                      <Component id="jtxtShortName" linkSize="7" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel31" linkSize="7" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jtxtReferenceName" linkSize="7" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="jLabel30" linkSize="7" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               </Group>
@@ -824,8 +863,8 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" pref="85" max="-2" attributes="1"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jlblUserName" min="-2" pref="123" max="-2" attributes="0"/>
@@ -837,26 +876,18 @@
                   <Component id="jLabel18" min="-2" pref="73" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jtxtLockDate" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="415" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jtxtLockDate" linkSize="16" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel18" linkSize="16" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="jlblEditNo" linkSize="41" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel9" linkSize="41" alignment="0" max="32767" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jlblUserName" linkSize="41" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
+              <Component id="jlblUserName" linkSize="41" alignment="0" pref="24" max="32767" attributes="0"/>
+              <Component id="jLabel9" linkSize="41" alignment="0" pref="24" max="32767" attributes="0"/>
+              <Component id="jlblEditNo" linkSize="41" alignment="0" pref="24" max="32767" attributes="0"/>
+              <Component id="jLabel18" linkSize="16" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+              <Component id="jtxtLockDate" linkSize="16" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

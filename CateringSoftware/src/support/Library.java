@@ -101,6 +101,7 @@ import static cateringsoftware.DeskFrame.addOnScreen;
 import static cateringsoftware.DeskFrame.checkAlradyOpen;
 import static cateringsoftware.DeskFrame.tabbedPane;
 import cateringsoftware.MainClass;
+import javax.swing.JComboBox;
 import utility.BackUp;
 import utility.ChangePassword;
 import utility.ChangeThemes;
@@ -220,7 +221,7 @@ public class Library {
         boolean flag = false;
         try {
             PreparedStatement pst = dataConnection.prepareStatement("SELECT * FROM user_master WHERE username = '"+ strUser +"' "
-                    + "AND password='"+ strPwd +"'");
+                    + "AND password='"+ strPwd +"' AND fk_status_id = 1");
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 DeskFrame.user_id = rs.getInt("id");
@@ -2892,5 +2893,43 @@ public class Library {
             printToLogFile("Exception at setDate for JTextField in Library", ex);
             jbtnFocus.requestFocusInWindow();
         }
+    }
+    public void setStatusComboBox(JComboBox jcmBox) {
+        String sql = "SELECT name FROM status_master ORDER BY order_sequence, id";
+        viewDataRs = fetchData(sql);
+        jcmBox.removeAllItems();
+        try {
+            while (viewDataRs.next()) {
+                jcmBox.addItem(viewDataRs.getObject(1).toString());
+            }
+        } catch (Exception e) {
+            printToLogFile("Exception at setTaxCombo In Library", e);
+        }
+    }
+    public String getStatusData(String status, String tag) {
+        String ans = "";
+        if (status == null) {
+            return "";
+        }
+        try {
+            String sql = "";
+            if (tag.equalsIgnoreCase("N")) {
+                sql = "SELECT name FROM status_master WHERE id = ?";
+            } else if (tag.equalsIgnoreCase("C")) {
+                sql = "SELECT id FROM status_master WHERE name = ?";
+            }
+
+            PreparedStatement pstLocal = dataConnection.prepareStatement(sql);
+            pstLocal.setString(1, status);
+            ResultSet rsLocal = pstLocal.executeQuery();
+            if (rsLocal.next()) {
+                ans = rsLocal.getString(1);
+            }
+            closeResultSet(rsLocal);
+            closeStatement(pstLocal);
+        } catch (Exception ex) {
+            printToLogFile("Exception at getAccountCode In Library", ex);
+        }
+        return ans;
     }
 }

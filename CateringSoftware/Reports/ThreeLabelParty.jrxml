@@ -4,9 +4,9 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="name" class="java.lang.String"/>
-	<field name="address1" class="java.lang.String"/>
-	<field name="address2" class="java.lang.String"/>
-	<field name="mobile_no1" class="java.lang.String"/>
+	<field name="office_address1" class="java.lang.String"/>
+	<field name="office_address2" class="java.lang.String"/>
+	<field name="mobile_no" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -18,7 +18,7 @@
 				<textElement>
 					<font fontName="Arial" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{address1} + " " + $F{address2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{office_address1} + " " + $F{office_address2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="526828b9-84f5-4f66-bed9-0982ba2f55b8" stretchType="RelativeToTallestObject" x="0" y="66" width="185" height="19"/>
@@ -26,7 +26,7 @@
 				<textElement>
 					<font fontName="Arial" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{mobile_no1}.equalsIgnoreCase("") ? "" : "Mob. : "+$F{mobile_no1})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{mobile_no}.equalsIgnoreCase("") ? "" : "Mob. : "+$F{mobile_no})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="dd814b3c-c182-40f5-b6d4-9e1346ce434e" stretchType="RelativeToTallestObject" x="0" y="1" width="185" height="18"/>

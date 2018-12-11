@@ -92,8 +92,8 @@ public class VoucherDisplay extends javax.swing.JInternalFrame {
     }
 
     private void accountMasterReport(String ref_no) {
-        String sql = "SELECT a.id, a.name, g.name as group_name, a.opening_rs, a.account_effect_rs, a.mobile_no1, a.phone_no1, a.fax_no, " +
-            "a.email_id, a.address1, a.address2, a.contact_prsn, a.refby, a.shortname " +
+        String sql = "SELECT a.id, a.name, g.name as group_name, a.opening_rs, a.account_effect_rs, a.mobile_no, a.phone_no, a.fax_no, " +
+            "a.email_id, a.office_address1, a.office_address2, a.contact_person, a.reference_by, a.short_name " +
             "FROM account_master a LEFT JOIN account_type g ON a.fk_account_type_id = g.id " +
             "WHERE a.fk_account_type_id = g.id ORDER BY g.name, a.name";
         HashMap params = new HashMap();

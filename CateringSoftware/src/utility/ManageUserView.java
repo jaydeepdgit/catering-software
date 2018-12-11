@@ -76,13 +76,13 @@ public class ManageUserView extends javax.swing.JInternalFrame {
     }
 
     private void showDailogeAdd() {
-        ManageUserController gp = new ManageUserController(null, true, this, "", "", 0);
+        ManageUserController gp = new ManageUserController(null, true, this, "", "", "1", 0);
         gp.setLocationRelativeTo(null);
         gp.show();
     }
 
-    private void showDailogeEdit(String user_name, String password, int code) {
-        ManageUserController gp = new ManageUserController(null, true, this, user_name, password, code);
+    private void showDailogeEdit(String user_name, String password, String status, int code) {
+        ManageUserController gp = new ManageUserController(null, true, this, user_name, password, status, code);
         gp.setLocationRelativeTo(null);
         gp.show();
     }
@@ -102,7 +102,7 @@ public class ManageUserView extends javax.swing.JInternalFrame {
                     navLoad.setMode("E");
                     lb.confirmDialog("Do you want to edit this user?");
                     if (lb.type) {
-                        showDailogeEdit(jTable1.getValueAt(row, 1).toString(), jTable1.getValueAt(row, 2).toString(), Integer.parseInt(jTable1.getValueAt(row, 0).toString()));
+                        showDailogeEdit(jTable1.getValueAt(row, 1).toString(), jTable1.getValueAt(row, 2).toString(), lb.getStatusData(jTable1.getValueAt(row, 3).toString(), "C"), Integer.parseInt(jTable1.getValueAt(row, 0).toString()));
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select row from table to modify");
@@ -163,7 +163,7 @@ public class ManageUserView extends javax.swing.JInternalFrame {
         navLoad.setVisible(true);
     }
 
-    public boolean addUpdateManageUserMaster(String username, String password, int user_cd) {
+    public boolean addUpdateManageUserMaster(String username, String password, String status, int user_cd) {
         PreparedStatement psLocal = null;
         ResultSet rsLocal = null;
 
@@ -171,13 +171,14 @@ public class ManageUserView extends javax.swing.JInternalFrame {
         ResultSet rsLocal2 = null;
         try {
             if(navLoad.getMode().equalsIgnoreCase("N")){
-                psLocal = dataConnection.prepareStatement("INSERT INTO user_master (username, password) VALUES (?, ?)");
+                psLocal = dataConnection.prepareStatement("INSERT INTO user_master (username, password, fk_status_id) VALUES (?, ?, ?)");
             } else if(navLoad.getMode().equalsIgnoreCase("E")){
-                psLocal = dataConnection.prepareStatement("UPDATE user_master SET username = ?, password = ? WHERE id = ?");
-                psLocal.setInt(3, user_cd); // USER CD
+                psLocal = dataConnection.prepareStatement("UPDATE user_master SET username = ?, password = ?, fk_status_id = ? WHERE id = ?");
+                psLocal.setInt(4, user_cd); // USER CD
             }
             psLocal.setString(1, username); // USERNAME
             psLocal.setString(2, password); // PASSWORD
+            psLocal.setString(3, status); // fk_status_id
             psLocal.executeUpdate();
 
             if (navLoad.getMode().equalsIgnoreCase("N")) {
@@ -227,6 +228,8 @@ public class ManageUserView extends javax.swing.JInternalFrame {
                 row.add(rsLocal.getString("id"));
                 row.add(rsLocal.getString("username"));
                 row.add(rsLocal.getString("password"));
+                row.add(rsLocal.getString("fk_status_id").equals("0") ? "Active" : "Deactive");
+                row.add(rsLocal.getString("fk_status_id"));
                 dtm.addRow(row);
             }
         } catch (Exception ex) {
@@ -261,14 +264,14 @@ public class ManageUserView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "User ID", "User Name", "Pass Word"
+                "User ID", "User Name", "Pass Word", "Status", "Status ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -298,6 +301,10 @@ public class ManageUserView extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(2).setResizable(false);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(0);
+        jTable1.getColumnModel().getColumn(4).setMaxWidth(0);
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -322,7 +329,7 @@ public class ManageUserView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

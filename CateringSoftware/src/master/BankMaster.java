@@ -40,6 +40,7 @@ public class BankMaster extends javax.swing.JInternalFrame {
         addNavigation();
         addValidation();
         setCompEnable(false);
+        lb.setStatusComboBox(jcmbStatus);
         setVoucher("Last");
         makeChildTable();
         setTitle(Constants.BANK_MASTER_FORM_NAME);
@@ -128,6 +129,7 @@ public class BankMaster extends javax.swing.JInternalFrame {
     private void setCompEnable(boolean flag) {
         jtxtBankCD.setEnabled(!flag);
         jtxtBankName.setEnabled(flag);
+        jcmbStatus.setEnabled(flag);
         jtxtBankName.requestFocusInWindow();
     }
 
@@ -263,6 +265,7 @@ public class BankMaster extends javax.swing.JInternalFrame {
                     id = viewData.getString("id");
                     jtxtBankCD.setText(id+"");
                     jtxtBankName.setText(viewData.getString("name"));
+                    jcmbStatus.setSelectedItem(lb.getStatusData(viewData.getInt("fk_status_id")+"", "N"));
                     jlblUserName.setText(lb.getUserName(viewData.getString("user_cd"), "N"));
                     jlblEditNo.setText(viewData.getString("edit_no"));
                     jlblLstUpdate.setText(lb.getTimeStamp(viewData.getTimestamp("time_stamp")));
@@ -275,6 +278,7 @@ public class BankMaster extends javax.swing.JInternalFrame {
             public void setComponentEnabledDisabled(boolean flag) {
                 jtxtBankCD.setEnabled(!flag);
                 jtxtBankName.setEnabled(flag);
+                jcmbStatus.setEnabled(flag);
                 jtxtBankName.requestFocusInWindow();
             }
         }
@@ -326,14 +330,15 @@ public class BankMaster extends javax.swing.JInternalFrame {
         PreparedStatement psLocal = null;
 
         if(navLoad.getMode().equalsIgnoreCase("N")) {
-            psLocal = dataConnection.prepareStatement("INSERT INTO bank_master(name, user_cd, id) VALUES (?, ?, ?)");
+            psLocal = dataConnection.prepareStatement("INSERT INTO bank_master(name, fk_status_id, edit_no, user_cd, id) VALUES (?, ?, 0, ?, ?)");
             id = lb.generateKey("bank_master", "id", Constants.BANK_MASTER_INITIAL, 7);
         } else if(navLoad.getMode().equalsIgnoreCase("E")) {
-            psLocal = dataConnection.prepareStatement("UPDATE bank_master SET name = ?, user_cd = ?, edit_no = edit_no + 1, time_stamp = CURRENT_TIMESTAMP WHERE id = ?");
+            psLocal = dataConnection.prepareStatement("UPDATE bank_master SET name = ?, fk_status_id = ?, user_cd = ?, edit_no = edit_no + 1, time_stamp = CURRENT_TIMESTAMP WHERE id = ?");
         }
         psLocal.setString(1, jtxtBankName.getText()); // name
-        psLocal.setInt(2, DeskFrame.user_id); // user_cd
-        psLocal.setString(3, id); // id
+        psLocal.setString(2, lb.getStatusData(jcmbStatus.getSelectedItem().toString(), "C")); // fk_status_id
+        psLocal.setInt(3, DeskFrame.user_id); // user_cd
+        psLocal.setString(4, id); // id
         psLocal.executeUpdate();
     }
 
@@ -389,6 +394,8 @@ public class BankMaster extends javax.swing.JInternalFrame {
         jlblLstUpdate = new javax.swing.JLabel();
         jlblEditNo = new javax.swing.JLabel();
         jlblUserName = new javax.swing.JLabel();
+        jcmbStatus = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(253, 243, 243));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 1, 1, new java.awt.Color(235, 35, 35)));
@@ -458,31 +465,51 @@ public class BankMaster extends javax.swing.JInternalFrame {
 
         jlblUserName.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
+        jcmbStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Deactive" }));
+        jcmbStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jcmbStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcmbStatusKeyPressed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel4.setText("Status");
+        jLabel4.setMaximumSize(new java.awt.Dimension(56, 25));
+        jLabel4.setMinimumSize(new java.awt.Dimension(56, 25));
+        jLabel4.setPreferredSize(new java.awt.Dimension(56, 25));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jlblEditNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlblLstUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtxtBankCD, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtxtBankName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jlblEditNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jlblLstUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtxtBankCD, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtBankName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jcmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
@@ -499,7 +526,11 @@ public class BankMaster extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jtxtBankName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jlblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -518,6 +549,8 @@ public class BankMaster extends javax.swing.JInternalFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel6, jLabel7, jLabel8, jlblEditNo, jlblLstUpdate, jlblUserName});
 
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel4, jcmbStatus});
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -525,7 +558,7 @@ public class BankMaster extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -543,9 +576,7 @@ public class BankMaster extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtBankNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBankNameKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            navLoad.setSaveFocus();
-        }
+        lb.enterEvent(evt, jcmbStatus);
     }//GEN-LAST:event_jtxtBankNameKeyPressed
 
     private void jtxtBankNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBankNameKeyTyped
@@ -583,14 +614,23 @@ public class BankMaster extends javax.swing.JInternalFrame {
         lb.fixLength(evt, 7);
     }//GEN-LAST:event_jtxtBankCDKeyTyped
 
+    private void jcmbStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbStatusKeyPressed
+        if(lb.isEnter(evt)) {
+            evt.consume();
+            navLoad.setSaveFocus();
+        }
+    }//GEN-LAST:event_jcmbStatusKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox jcmbStatus;
     private javax.swing.JLabel jlblEditNo;
     private javax.swing.JLabel jlblLstUpdate;
     private javax.swing.JLabel jlblUserName;

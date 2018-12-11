@@ -40,6 +40,7 @@ public class UnitMaster extends javax.swing.JInternalFrame {
         addNavigation();
         addValidation();
         setCompEnable(false);
+        lb.setStatusComboBox(jcmbStatus);
         setVoucher("Last");
         makeChildTable();
         setTitle(Constants.UNIT_MASTER_FORM_NAME);
@@ -141,6 +142,7 @@ public class UnitMaster extends javax.swing.JInternalFrame {
         jtxtUnitID.setEnabled(!flag);
         jtxtUnitName.setEnabled(flag);
         jtxtUnitSymbol.setEnabled(flag);
+        jcmbStatus.setEnabled(flag);
         jtxtUnitName.requestFocusInWindow();
     }
 
@@ -279,6 +281,7 @@ public class UnitMaster extends javax.swing.JInternalFrame {
                     jtxtUnitID.setText(id+"");
                     jtxtUnitName.setText(navLoad.viewData.getString("name"));
                     jtxtUnitSymbol.setText(navLoad.viewData.getString("symbol"));
+                    jcmbStatus.setSelectedItem(lb.getStatusData(viewData.getInt("fk_status_id")+"", "N"));
                     jlblUserName.setText(lb.getUserName(navLoad.viewData.getString("user_cd"), "N"));
                     jlblEditNo.setText(navLoad.viewData.getString("edit_no"));
                     jlblLstUpdate.setText(lb.getTimeStamp(viewData.getTimestamp("time_stamp")));
@@ -292,6 +295,7 @@ public class UnitMaster extends javax.swing.JInternalFrame {
                 jtxtUnitID.setEnabled(!flag);
                 jtxtUnitName.setEnabled(flag);
                 jtxtUnitSymbol.setEnabled(flag);
+                jcmbStatus.setEnabled(flag);
                 jtxtUnitName.requestFocusInWindow();
             }
         }
@@ -343,15 +347,16 @@ public class UnitMaster extends javax.swing.JInternalFrame {
         PreparedStatement psLocal = null;
 
         if(navLoad.getMode().equalsIgnoreCase("N")) {
-            psLocal = dataConnection.prepareStatement("INSERT INTO unit_master(name, symbol, user_cd, id) VALUES (?, ?, ?, ?)");
+            psLocal = dataConnection.prepareStatement("INSERT INTO unit_master(name, symbol, fk_status_id, edit_no, user_cd, id) VALUES (?, ?, ?, 0, ?, ?)");
             id = lb.generateKey("unit_master", "id");
         } else if(navLoad.getMode().equalsIgnoreCase("E")) {
-            psLocal = dataConnection.prepareStatement("UPDATE unit_master SET name = ?, symbol = ?, user_cd = ?, edit_no = edit_no + 1, time_stamp = CURRENT_TIMESTAMP WHERE id = ?");
+            psLocal = dataConnection.prepareStatement("UPDATE unit_master SET name = ?, symbol = ?, fk_status_id = ?, user_cd = ?, edit_no = edit_no + 1, time_stamp = CURRENT_TIMESTAMP WHERE id = ?");
         }
         psLocal.setString(1, jtxtUnitName.getText()); // name
         psLocal.setString(2, jtxtUnitSymbol.getText()); // symbol
-        psLocal.setInt(3, DeskFrame.user_id); // user_cd
-        psLocal.setInt(4, id); // id
+        psLocal.setString(3, lb.getStatusData(jcmbStatus.getSelectedItem().toString(), "C")); // fk_status_id
+        psLocal.setInt(4, DeskFrame.user_id); // user_cd
+        psLocal.setInt(5, id); // id
         psLocal.executeUpdate();
     }
 
@@ -409,6 +414,8 @@ public class UnitMaster extends javax.swing.JInternalFrame {
         jlblLstUpdate = new javax.swing.JLabel();
         jlblEditNo = new javax.swing.JLabel();
         jlblUserName = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jcmbStatus = new javax.swing.JComboBox();
 
         jPanel1.setBackground(new java.awt.Color(253, 243, 243));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 1, 1, new java.awt.Color(235, 35, 35)));
@@ -512,6 +519,21 @@ public class UnitMaster extends javax.swing.JInternalFrame {
 
         jlblUserName.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel4.setText("Status");
+        jLabel4.setMaximumSize(new java.awt.Dimension(56, 25));
+        jLabel4.setMinimumSize(new java.awt.Dimension(56, 25));
+        jLabel4.setPreferredSize(new java.awt.Dimension(56, 25));
+
+        jcmbStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Deactive" }));
+        jcmbStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jcmbStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcmbStatusKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -530,15 +552,17 @@ public class UnitMaster extends javax.swing.JInternalFrame {
                             .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jlblLstUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtxtUnitID, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtxtUnitName, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                            .addComponent(jtxtUnitSymbol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jtxtUnitSymbol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
 
@@ -559,6 +583,10 @@ public class UnitMaster extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtUnitSymbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
@@ -581,6 +609,8 @@ public class UnitMaster extends javax.swing.JInternalFrame {
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel7, jlblEditNo});
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel8, jlblLstUpdate});
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel4, jcmbStatus});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -631,9 +661,7 @@ public class UnitMaster extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtxtUnitSymbolFocusLost
 
     private void jtxtUnitSymbolKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtUnitSymbolKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            navLoad.setSaveFocus();
-        }
+        lb.enterEvent(evt, jcmbStatus);
     }//GEN-LAST:event_jtxtUnitSymbolKeyPressed
 
     private void jtxtUnitSymbolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtUnitSymbolKeyTyped
@@ -663,15 +691,24 @@ public class UnitMaster extends javax.swing.JInternalFrame {
         lb.onlyInteger(evt, 7);
     }//GEN-LAST:event_jtxtUnitIDKeyTyped
 
+    private void jcmbStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbStatusKeyPressed
+        if(lb.isEnter(evt)) {
+            evt.consume();
+            navLoad.setSaveFocus();
+        }
+    }//GEN-LAST:event_jcmbStatusKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox jcmbStatus;
     private javax.swing.JLabel jlblEditNo;
     private javax.swing.JLabel jlblLstUpdate;
     private javax.swing.JLabel jlblUserName;

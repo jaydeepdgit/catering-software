@@ -48,6 +48,7 @@ public class TaxMaster extends javax.swing.JInternalFrame {
         addNavigation();
         addValidation();
         makeChildTable();
+        lb.setStatusComboBox(jcmbStatus);
         setVoucher("last");
     }
 
@@ -248,6 +249,7 @@ public class TaxMaster extends javax.swing.JInternalFrame {
                 jtxtTaxCD.setEnabled(!bFlag);
                 jtxtTaxName.setEnabled(bFlag);
                 jtxtTax.setEnabled(bFlag);
+                jcmbStatus.setEnabled(bFlag);
             }
 
             public int valueUpdateToDatabase(boolean bPrepareStatement) {
@@ -275,6 +277,7 @@ public class TaxMaster extends javax.swing.JInternalFrame {
                     jtxtTaxCD.setText(id);
                     jtxtTaxName.setText(viewData.getString("name"));
                     jtxtTax.setText(lb.Convert2DecFmt(viewData.getDouble("tax")));
+                    jcmbStatus.setSelectedItem(lb.getStatusData(viewData.getInt("fk_status_id")+"", "N"));
                     jlblUserName.setText(lb.getUserName(viewData.getString("user_cd"), "N"));
                     jlblEditNo.setText(viewData.getString("edit_no"));
                     jlblLstUpdate.setText(lb.timestamp.format(new Date(viewData.getTimestamp("time_stamp").getTime())));
@@ -361,17 +364,18 @@ public class TaxMaster extends javax.swing.JInternalFrame {
     private void saveVoucher() throws SQLException {
         String sql = "";
         if (navLoad.getMode().equalsIgnoreCase("N")) {
-            sql = "INSERT INTO tax_master (name, tax, user_cd, id) VALUES(?, ?, ?, ?)";
+            sql = "INSERT INTO tax_master (name, tax, fk_status_id, edit_no, user_cd, id) VALUES(?, ?, ?, 0, ?, ?)";
             id = lb.generateKey("tax_master", "id", Constants.TAX_MASTER_INITIAL, 7);
         } else if (navLoad.getMode().equalsIgnoreCase("E")) {
-            sql = "UPDATE tax_master SET name = ?, tax = ?, time_stamp = CURRENT_TIMESTAMP, edit_no = edit_no + 1, user_cd = ? WHERE id = ?";
+            sql = "UPDATE tax_master SET name = ?, tax = ?, fk_status_id = ?, time_stamp = CURRENT_TIMESTAMP, edit_no = edit_no + 1, user_cd = ? WHERE id = ?";
         }
         ps = dataConnection.prepareStatement(sql);
         try {
             ps.setString(1, jtxtTaxName.getText()); // name
             ps.setString(2, jtxtTax.getText()); // tax
-            ps.setInt(3, DeskFrame.user_id); // user_cd
-            ps.setString(4, id); // id
+            ps.setString(3, lb.getStatusData(jcmbStatus.getSelectedItem().toString(), "C")); // fk_status_id
+            ps.setInt(4, DeskFrame.user_id); // user_cd
+            ps.setString(5, id); // id
             ps.execute();
         } catch (SQLException ex) {
             lb.printToLogFile("error at saveVoucher In Tax Master", ex);
@@ -401,6 +405,8 @@ public class TaxMaster extends javax.swing.JInternalFrame {
         jlblEditNo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtxtTaxCD = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jcmbStatus = new javax.swing.JComboBox();
 
         setClosable(true);
 
@@ -504,32 +510,52 @@ public class TaxMaster extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel4.setText("Status");
+        jLabel4.setMaximumSize(new java.awt.Dimension(56, 25));
+        jLabel4.setMinimumSize(new java.awt.Dimension(56, 25));
+        jLabel4.setPreferredSize(new java.awt.Dimension(56, 25));
+
+        jcmbStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Deactive" }));
+        jcmbStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(4, 110, 152)));
+        jcmbStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcmbStatusKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtTaxCD, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jlblEditNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                        .addComponent(jlblLstUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jtxtTaxName, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtTax, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtxtTaxCD, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jlblEditNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                .addComponent(jlblLstUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jtxtTaxName, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                            .addComponent(jtxtTax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jcmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jlblEditNo, jlblLstUpdate, jlblUserName, jtxtTax});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jlblEditNo, jlblLstUpdate, jlblUserName});
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel10, jLabel11, jLabel2, jLabel3, jLabel9});
 
@@ -548,7 +574,11 @@ public class TaxMaster extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtxtTax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
                     .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -569,6 +599,8 @@ public class TaxMaster extends javax.swing.JInternalFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, jtxtTaxCD});
 
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel4, jcmbStatus});
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -576,7 +608,7 @@ public class TaxMaster extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -598,10 +630,7 @@ public class TaxMaster extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtxtTaxNameKeyPressed
 
     private void jtxtTaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTaxKeyPressed
-        if(lb.isEnter(evt)) {
-            evt.consume();
-            navLoad.setSaveFocus();
-        }
+        lb.enterEvent(evt, jcmbStatus);
     }//GEN-LAST:event_jtxtTaxKeyPressed
 
     private void jtxtTaxNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtTaxNameFocusLost
@@ -647,15 +676,24 @@ public class TaxMaster extends javax.swing.JInternalFrame {
         lb.fixLength(evt, 50);
     }//GEN-LAST:event_jtxtTaxNameKeyTyped
 
+    private void jcmbStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbStatusKeyPressed
+        if(lb.isEnter(evt)) {
+            evt.consume();
+            navLoad.setSaveFocus();
+        }
+    }//GEN-LAST:event_jcmbStatusKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox jcmbStatus;
     private javax.swing.JLabel jlblEditNo;
     private javax.swing.JLabel jlblLstUpdate;
     private javax.swing.JLabel jlblUserName;
