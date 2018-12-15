@@ -266,7 +266,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
             if (navLoad.getMode().equalsIgnoreCase("N")) {
                 sql = "INSERT INTO account_master(name, fk_account_type_id, opening_rs, account_effect_rs, maximum_rs, minimum_rs, "+
                     "reference_by, short_name, contact_person, home_address1, home_address2, office_address1, office_address2, "+
-                    "email_id, mobile_no, phone_no, fax_no, fk_status_id, lock_date, gst_no, pan_no, user_cd, edit_no, id) "+
+                    "email_id, mobile_no, phone_no, fax_no, gst_no, pan_no, fk_status_id, lock_date, user_cd, edit_no, id) "+
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
                 id = lb.generateKey("account_master", "id", Constants.ACCOUNT_MASTER_INITIAL, 7);
                 dataConnection.setAutoCommit(false);
@@ -937,7 +937,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
             }
         });
 
-        jtxtAccountName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAccountName.setFont(new java.awt.Font("Arial Unicode MS", 0, 12)); // NOI18N
         jtxtAccountName.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 0, 0)));
         jtxtAccountName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -1219,7 +1219,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtxtLockDate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(415, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
