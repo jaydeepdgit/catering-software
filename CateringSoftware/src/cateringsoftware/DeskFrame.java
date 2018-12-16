@@ -211,18 +211,20 @@ public class DeskFrame extends javax.swing.JFrame {
         jmnAccountMaster.setText(Constants.ACCOUNT_MASTER_FORM_NAME);
         jmnMainCategoryRM.setText(Constants.MAIN_CATEGORY_FORM_NAME);
         jmnSubCategoryRM.setText(Constants.SUB_CATEGORY_FORM_NAME);
-        jmnRowMaterialRM.setText(Constants.ROW_MATERIAL_FORM_NAME);
+        jmnRawMaterialRM.setText(Constants.RAW_MATERIAL_FORM_NAME);
         jmnMainCategoryFI.setText(Constants.MAIN_CATEGORY_FORM_NAME);
         jmnFoodTypeFI.setText(Constants.FOOD_TYPE_FORM_NAME);
         jmnFinishMaterial.setText(Constants.FINISH_MATERIAL_FORM_NAME);
         jmnTimeMaster.setText(Constants.TIME_MASTER_FORM_NAME);
         jmnUnitMaster.setText(Constants.UNIT_MASTER_FORM_NAME);
-        jmnOccasionMaster.setText(Constants.OCCASION_MASTER_FORM_NAME);
         jmnMenuTypeMaster.setText(Constants.MENU_TYPE_MASTER_FORM_NAME);
-        jmnMenuStepMaster.setText(Constants.MENU_STEP_MASTER_FORM_NAME);
-        jmnThemeMaster.setText(Constants.THEME_MASTER_FORM_NAME);
+        jmnDressCodeMaster.setText(Constants.DRESS_CODE_MASTER_FORM_ID);
         jmnBankMaster.setText(Constants.BANK_MASTER_FORM_NAME);
         jmnTaxMaster.setText(Constants.TAX_MASTER_FORM_NAME);
+
+        // EVENT
+        jmnFunctionMaster.setText(Constants.FUNCTION_MASTER_FORM_NAME);
+        jmnEventPackage.setText(Constants.EVENT_PACKAGE_FORM_NAME);
 
         // REPORT
         jmnCheckPrintReport.setText(Constants.CHECK_PRINT_REPORT_FORM_NAME);
@@ -376,18 +378,20 @@ public class DeskFrame extends javax.swing.JFrame {
         hashMenu.put(Integer.parseInt(Constants.ACCOUNT_MASTER_FORM_ID), jmnAccountMaster);
         hashMenu.put(Integer.parseInt(Constants.MAIN_CATEGORY_RW_FORM_ID), jmnMainCategoryRM);
         hashMenu.put(Integer.parseInt(Constants.SUB_CATEGORY_RW_FORM_ID), jmnSubCategoryRM);
-        hashMenu.put(Integer.parseInt(Constants.ROW_MATERIAL_RW_FORM_ID), jmnRowMaterialRM);
+        hashMenu.put(Integer.parseInt(Constants.RAW_MATERIAL_RW_FORM_ID), jmnRawMaterialRM);
         hashMenu.put(Integer.parseInt(Constants.MAIN_CATEGORY_FI_FORM_ID), jmnMainCategoryFI);
         hashMenu.put(Integer.parseInt(Constants.FOOD_TYPE_FI_FORM_ID), jmnFoodTypeFI);
         hashMenu.put(Integer.parseInt(Constants.FINISH_MATERIAL_FI_FORM_ID), jmnFinishMaterial);
         hashMenu.put(Integer.parseInt(Constants.TIME_MASTER_FORM_ID), jmnTimeMaster);
         hashMenu.put(Integer.parseInt(Constants.UNIT_MASTER_FORM_ID), jmnUnitMaster);
-        hashMenu.put(Integer.parseInt(Constants.OCCASION_MASTER_FORM_ID), jmnOccasionMaster);
         hashMenu.put(Integer.parseInt(Constants.MENU_TYPE_MASTER_FORM_ID), jmnMenuTypeMaster);
-        hashMenu.put(Integer.parseInt(Constants.MENU_STEP_MASTER_FORM_ID), jmnMenuStepMaster);
-        hashMenu.put(Integer.parseInt(Constants.THEME_MASTER_FORM_ID), jmnThemeMaster);
+        hashMenu.put(Integer.parseInt(Constants.DRESS_CODE_MASTER_FORM_ID), jmnDressCodeMaster);
         hashMenu.put(Integer.parseInt(Constants.BANK_MASTER_FORM_ID), jmnBankMaster);
         hashMenu.put(Integer.parseInt(Constants.TAX_MASTER_FORM_ID), jmnTaxMaster);
+
+        // EVENT
+        hashMenu.put(Integer.parseInt(Constants.FUNCTION_MASTER_FORM_ID), jmnFunctionMaster);
+        hashMenu.put(Integer.parseInt(Constants.EVENT_PACKAGE_FORM_ID), jmnEventPackage);
 
         // MENU ORDER
         hashMenu.put(Integer.parseInt(Constants.MAIN_ORDER_FORM_ID), jmnMainOrder);
@@ -570,22 +574,23 @@ public class DeskFrame extends javax.swing.JFrame {
         jmnAccount = new javax.swing.JMenu();
         jmnAccountType = new javax.swing.JMenuItem();
         jmnAccountMaster = new javax.swing.JMenuItem();
-        jmnRowMaterialMain = new javax.swing.JMenu();
+        jmnRawMaterialMain = new javax.swing.JMenu();
         jmnMainCategoryRM = new javax.swing.JMenuItem();
         jmnSubCategoryRM = new javax.swing.JMenuItem();
-        jmnRowMaterialRM = new javax.swing.JMenuItem();
+        jmnRawMaterialRM = new javax.swing.JMenuItem();
         jmnFinishItemMain = new javax.swing.JMenu();
         jmnMainCategoryFI = new javax.swing.JMenuItem();
         jmnFoodTypeFI = new javax.swing.JMenuItem();
         jmnFinishMaterial = new javax.swing.JMenuItem();
         jmnTimeMaster = new javax.swing.JMenuItem();
         jmnUnitMaster = new javax.swing.JMenuItem();
-        jmnOccasionMaster = new javax.swing.JMenuItem();
         jmnMenuTypeMaster = new javax.swing.JMenuItem();
-        jmnMenuStepMaster = new javax.swing.JMenuItem();
-        jmnThemeMaster = new javax.swing.JMenuItem();
+        jmnDressCodeMaster = new javax.swing.JMenuItem();
         jmnBankMaster = new javax.swing.JMenuItem();
         jmnTaxMaster = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmnFunctionMaster = new javax.swing.JMenuItem();
+        jmnEventPackage = new javax.swing.JMenuItem();
         menuorder = new javax.swing.JMenu();
         jmnMainOrder = new javax.swing.JMenuItem();
         jmnAddOrder = new javax.swing.JMenuItem();
@@ -702,9 +707,9 @@ public class DeskFrame extends javax.swing.JFrame {
 
         master.add(jmnAccount);
 
-        jmnRowMaterialMain.setMnemonic('R');
-        jmnRowMaterialMain.setText("ROW MATERIAL");
-        jmnRowMaterialMain.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jmnRawMaterialMain.setMnemonic('R');
+        jmnRawMaterialMain.setText("RAW MATERIAL");
+        jmnRawMaterialMain.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
         jmnMainCategoryRM.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jmnMainCategoryRM.setMnemonic('M');
@@ -714,7 +719,7 @@ public class DeskFrame extends javax.swing.JFrame {
                 jmnMainCategoryRMActionPerformed(evt);
             }
         });
-        jmnRowMaterialMain.add(jmnMainCategoryRM);
+        jmnRawMaterialMain.add(jmnMainCategoryRM);
 
         jmnSubCategoryRM.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jmnSubCategoryRM.setMnemonic('S');
@@ -724,19 +729,19 @@ public class DeskFrame extends javax.swing.JFrame {
                 jmnSubCategoryRMActionPerformed(evt);
             }
         });
-        jmnRowMaterialMain.add(jmnSubCategoryRM);
+        jmnRawMaterialMain.add(jmnSubCategoryRM);
 
-        jmnRowMaterialRM.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jmnRowMaterialRM.setMnemonic('R');
-        jmnRowMaterialRM.setText("ROW MATERIAL");
-        jmnRowMaterialRM.addActionListener(new java.awt.event.ActionListener() {
+        jmnRawMaterialRM.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jmnRawMaterialRM.setMnemonic('R');
+        jmnRawMaterialRM.setText("RAW MATERIAL");
+        jmnRawMaterialRM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnRowMaterialRMActionPerformed(evt);
+                jmnRawMaterialRMActionPerformed(evt);
             }
         });
-        jmnRowMaterialMain.add(jmnRowMaterialRM);
+        jmnRawMaterialMain.add(jmnRawMaterialRM);
 
-        master.add(jmnRowMaterialMain);
+        master.add(jmnRawMaterialMain);
 
         jmnFinishItemMain.setMnemonic('F');
         jmnFinishItemMain.setText("FINISH ITEM");
@@ -794,16 +799,6 @@ public class DeskFrame extends javax.swing.JFrame {
         });
         master.add(jmnUnitMaster);
 
-        jmnOccasionMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jmnOccasionMaster.setMnemonic('O');
-        jmnOccasionMaster.setText("OCCASION MASTER");
-        jmnOccasionMaster.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnOccasionMasterActionPerformed(evt);
-            }
-        });
-        master.add(jmnOccasionMaster);
-
         jmnMenuTypeMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jmnMenuTypeMaster.setMnemonic('M');
         jmnMenuTypeMaster.setText("MENU TYPE MASTER");
@@ -814,25 +809,15 @@ public class DeskFrame extends javax.swing.JFrame {
         });
         master.add(jmnMenuTypeMaster);
 
-        jmnMenuStepMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jmnMenuStepMaster.setMnemonic('M');
-        jmnMenuStepMaster.setText("MENU STEP MASTER");
-        jmnMenuStepMaster.addActionListener(new java.awt.event.ActionListener() {
+        jmnDressCodeMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jmnDressCodeMaster.setMnemonic('D');
+        jmnDressCodeMaster.setText("DRESS CODE MASTER");
+        jmnDressCodeMaster.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnMenuStepMasterActionPerformed(evt);
+                jmnDressCodeMasterActionPerformed(evt);
             }
         });
-        master.add(jmnMenuStepMaster);
-
-        jmnThemeMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jmnThemeMaster.setMnemonic('T');
-        jmnThemeMaster.setText("THEME MASTER");
-        jmnThemeMaster.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnThemeMasterActionPerformed(evt);
-            }
-        });
-        master.add(jmnThemeMaster);
+        master.add(jmnDressCodeMaster);
 
         jmnBankMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jmnBankMaster.setMnemonic('B');
@@ -855,6 +840,22 @@ public class DeskFrame extends javax.swing.JFrame {
         master.add(jmnTaxMaster);
 
         jMenuBar1.add(master);
+
+        jMenu1.setMnemonic('E');
+        jMenu1.setText("EVENT");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jmnFunctionMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jmnFunctionMaster.setMnemonic('F');
+        jmnFunctionMaster.setText("FUNCTION MASTER");
+        jMenu1.add(jmnFunctionMaster);
+
+        jmnEventPackage.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jmnEventPackage.setMnemonic('E');
+        jmnEventPackage.setText("EVENT PACKAGE");
+        jMenu1.add(jmnEventPackage);
+
+        jMenuBar1.add(jMenu1);
 
         menuorder.setMnemonic('M');
         menuorder.setText("MENU ORDER");
@@ -1308,21 +1309,13 @@ public class DeskFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmnTimeMasterActionPerformed
 
-    private void jmnOccasionMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnOccasionMasterActionPerformed
-        
-    }//GEN-LAST:event_jmnOccasionMasterActionPerformed
-
-    private void jmnMenuStepMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMenuStepMasterActionPerformed
-        
-    }//GEN-LAST:event_jmnMenuStepMasterActionPerformed
-
     private void jmnMenuTypeMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMenuTypeMasterActionPerformed
         
     }//GEN-LAST:event_jmnMenuTypeMasterActionPerformed
 
-    private void jmnThemeMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnThemeMasterActionPerformed
+    private void jmnDressCodeMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnDressCodeMasterActionPerformed
         
-    }//GEN-LAST:event_jmnThemeMasterActionPerformed
+    }//GEN-LAST:event_jmnDressCodeMasterActionPerformed
 
     private void jmnCheckPrintReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnCheckPrintReportActionPerformed
         int index = checkAlradyOpen(Constants.CHECK_PRINT_REPORT_FORM_NAME);
@@ -1354,9 +1347,9 @@ public class DeskFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmnSubCategoryRMActionPerformed
 
-    private void jmnRowMaterialRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRowMaterialRMActionPerformed
+    private void jmnRawMaterialRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRawMaterialRMActionPerformed
         
-    }//GEN-LAST:event_jmnRowMaterialRMActionPerformed
+    }//GEN-LAST:event_jmnRawMaterialRMActionPerformed
 
     private void jmnMainCategoryFIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMainCategoryFIActionPerformed
         
@@ -1388,6 +1381,7 @@ public class DeskFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jmnAccount;
     private javax.swing.JMenuItem jmnAccountList;
@@ -1403,11 +1397,14 @@ public class DeskFrame extends javax.swing.JFrame {
     public static javax.swing.JMenuItem jmnCheckPrint;
     private javax.swing.JMenuItem jmnCheckPrintReport;
     private javax.swing.JMenuItem jmnCompanySetting;
+    private javax.swing.JMenuItem jmnDressCodeMaster;
     private javax.swing.JMenuItem jmnEmail;
+    private javax.swing.JMenuItem jmnEventPackage;
     private javax.swing.JMenuItem jmnExit;
     private javax.swing.JMenu jmnFinishItemMain;
     private javax.swing.JMenuItem jmnFinishMaterial;
     private javax.swing.JMenuItem jmnFoodTypeFI;
+    private javax.swing.JMenuItem jmnFunctionMaster;
     private javax.swing.JMenuItem jmnLogin;
     private javax.swing.JMenuItem jmnLogout;
     private javax.swing.JMenuItem jmnMainCategoryFI;
@@ -1415,19 +1412,16 @@ public class DeskFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmnMainOrder;
     private javax.swing.JMenuItem jmnManageEmail;
     private javax.swing.JMenuItem jmnManageUser;
-    private javax.swing.JMenuItem jmnMenuStepMaster;
     private javax.swing.JMenuItem jmnMenuTypeMaster;
     private javax.swing.JMenuItem jmnMinimize;
     public static javax.swing.JMenuItem jmnNewYear;
-    private javax.swing.JMenuItem jmnOccasionMaster;
     private javax.swing.JMenuItem jmnOrderList;
     private javax.swing.JMenuItem jmnQuickOpen;
+    private javax.swing.JMenu jmnRawMaterialMain;
+    private javax.swing.JMenuItem jmnRawMaterialRM;
     private javax.swing.JMenuItem jmnReset;
-    private javax.swing.JMenu jmnRowMaterialMain;
-    private javax.swing.JMenuItem jmnRowMaterialRM;
     private javax.swing.JMenuItem jmnSubCategoryRM;
     private javax.swing.JMenuItem jmnTaxMaster;
-    private javax.swing.JMenuItem jmnThemeMaster;
     private javax.swing.JMenuItem jmnTimeMaster;
     private javax.swing.JMenuItem jmnUnitMaster;
     private javax.swing.JMenuItem jmnUserRights;

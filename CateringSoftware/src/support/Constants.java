@@ -15,42 +15,44 @@ public class Constants {
     public static String ACCOUNT_MASTER_FORM_ID = "2";
     public static String MAIN_CATEGORY_RW_FORM_ID = "3";
     public static String SUB_CATEGORY_RW_FORM_ID = "4";
-    public static String ROW_MATERIAL_RW_FORM_ID = "5";
+    public static String RAW_MATERIAL_RW_FORM_ID = "5";
     public static String MAIN_CATEGORY_FI_FORM_ID = "6";
     public static String FOOD_TYPE_FI_FORM_ID = "7";
     public static String FINISH_MATERIAL_FI_FORM_ID = "8";
     public static String TIME_MASTER_FORM_ID = "9";
     public static String UNIT_MASTER_FORM_ID = "10";
-    public static String OCCASION_MASTER_FORM_ID = "11";
-    public static String MENU_TYPE_MASTER_FORM_ID = "12";
-    public static String MENU_STEP_MASTER_FORM_ID = "13";
-    public static String THEME_MASTER_FORM_ID = "14";
-    public static String BANK_MASTER_FORM_ID = "15";
-    public static String TAX_MASTER_FORM_ID = "16";
+    public static String MENU_TYPE_MASTER_FORM_ID = "11";
+    public static String DRESS_CODE_MASTER_FORM_ID = "12";
+    public static String BANK_MASTER_FORM_ID = "13";
+    public static String TAX_MASTER_FORM_ID = "14";
+
+    // EVENT
+    public static String FUNCTION_MASTER_FORM_ID = "61";
+    public static String EVENT_PACKAGE_FORM_ID = "62";
 
     // MENU ORDER
-    public static String MAIN_ORDER_FORM_ID = "61";
-    public static String ADD_ORDER_FORM_ID = "62";
-    public static String ADD_MULTIPLE_ORDER_FORM_ID = "63";
-    public static String ORDER_LIST_FORM_ID = "64";
+    public static String MAIN_ORDER_FORM_ID = "101";
+    public static String ADD_ORDER_FORM_ID = "102";
+    public static String ADD_MULTIPLE_ORDER_FORM_ID = "103";
+    public static String ORDER_LIST_FORM_ID = "104";
 
     // REPORTS
-    public static String CHECK_PRINT_REPORT_FORM_ID = "101";
-    public static String ACCOUNT_LIST_FORM_ID = "102";
+    public static String CHECK_PRINT_REPORT_FORM_ID = "211";
+    public static String ACCOUNT_LIST_FORM_ID = "212";
 
     // UTILITY
-    public static String COMPANY_SETTING_FORM_ID = "211";
-    public static String MANAGE_USER_FORM_ID = "212";
-    public static String USER_RIGHTS_FORM_ID = "213";
-    public static String MANAGE_EMAIL_FORM_ID = "214";
-    public static String CHANGE_PASSWORD_FORM_ID = "215";
-    public static String QUICK_OPEN_FORM_ID = "216";
-    public static String BACK_UP_FORM_ID = "217";
-    public static String RESET_FORM_ID = "218";
-    public static String EMAIL_FORM_ID = "219";
-    public static String CHECK_PRINT_FORM_ID = "220";
-    public static String NEW_YEAR_FORM_ID = "221";
-    public static String CHANGE_THEMES_FORM_ID = "222";
+    public static String COMPANY_SETTING_FORM_ID = "311";
+    public static String MANAGE_USER_FORM_ID = "312";
+    public static String USER_RIGHTS_FORM_ID = "313";
+    public static String MANAGE_EMAIL_FORM_ID = "314";
+    public static String CHANGE_PASSWORD_FORM_ID = "315";
+    public static String QUICK_OPEN_FORM_ID = "316";
+    public static String BACK_UP_FORM_ID = "317";
+    public static String RESET_FORM_ID = "318";
+    public static String EMAIL_FORM_ID = "319";
+    public static String CHECK_PRINT_FORM_ID = "320";
+    public static String NEW_YEAR_FORM_ID = "321";
+    public static String CHANGE_THEMES_FORM_ID = "322";
 
     /* form name: start */
     // LOGIN
@@ -64,17 +66,19 @@ public class Constants {
     public static String ACCOUNT_MASTER_FORM_NAME = "ACCOUNT MASTER";
     public static String MAIN_CATEGORY_FORM_NAME = "MAIN CATEGORY";
     public static String SUB_CATEGORY_FORM_NAME = "SUB CATEGORY";
-    public static String ROW_MATERIAL_FORM_NAME = "ROW MATERIAL";
+    public static String RAW_MATERIAL_FORM_NAME = "RAW MATERIAL";
     public static String FOOD_TYPE_FORM_NAME = "FOOD TYPE";
     public static String FINISH_MATERIAL_FORM_NAME = "FINISH MATERIAL";
     public static String TIME_MASTER_FORM_NAME = "TIME MASTER";
     public static String UNIT_MASTER_FORM_NAME = "UNIT MASTER";
-    public static String OCCASION_MASTER_FORM_NAME = "OCCASION MASTER";
     public static String MENU_TYPE_MASTER_FORM_NAME = "MENU TYPE MASTER";
-    public static String MENU_STEP_MASTER_FORM_NAME = "MENU STEP MASTER";
-    public static String THEME_MASTER_FORM_NAME = "THEME MASTER";
+    public static String DRESS_CODE_MASTER_FORM_NAME = "DRESS CODE MASTER";
     public static String BANK_MASTER_FORM_NAME = "BANK MASTER";
     public static String TAX_MASTER_FORM_NAME = "TAX MASTER";
+
+    // EVENT
+    public static String FUNCTION_MASTER_FORM_NAME = "FUNCTION MASTER";
+    public static String EVENT_PACKAGE_FORM_NAME = "EVENT PACKAGE";
 
     // MENU ORDER
     public static String MAIN_ORDER_FORM_NAME = "MAIN ORDER";
@@ -103,27 +107,29 @@ public class Constants {
 
     /* INITIAL Name: Start */
     // MASTER
-    public static String ACCOUNT_TYPE_INITIAL = "AT";
-    public static String ACCOUNT_MASTER_INITIAL = "AM";
-    public static String MAIN_CATEGORY_RM_INITIAL = "MR";
-    public static String SUB_CATEGORY_RM_INITIAL = "SR";
-    public static String ROW_MATERIAL_RM_INITIAL = "RR";
-    public static String MAIN_CATEGORY_FI_INITIAL = "MF";
-    public static String FOOD_TYPE_FI_INITIAL = "FT";
-    public static String FINISH_MATERIAL_FI_INITIAL = "FM";
-    public static String TIME_MASTER_INITIAL = "TM";
-    public static String UNIT_MASTER_INITIAL = "UN";
-    public static String OCCASION_MASTER_INITIAL = "OM";
-    public static String MENU_TYPE_MASTER_INITIAL = "MT";
-    public static String MENU_STEP_MASTER_INITIAL = "MS";
-    public static String THEME_MASTER_INITIAL = "TH";
-    public static String BANK_MASTER_INITIAL = "BM";
+    public static String ACCOUNT_TYPE_INITIAL = "ACT";
+    public static String ACCOUNT_MASTER_INITIAL = "ACM";
+    public static String MAIN_CATEGORY_RM_INITIAL = "MCR";
+    public static String SUB_CATEGORY_RM_INITIAL = "SCR";
+    public static String RAW_MATERIAL_RM_INITIAL = "RMR";
+    public static String MAIN_CATEGORY_FI_INITIAL = "MCF";
+    public static String FOOD_TYPE_FI_INITIAL = "FTF";
+    public static String FINISH_MATERIAL_FI_INITIAL = "FMF";
+    public static String TIME_MASTER_INITIAL = "TMM";
+    public static String UNIT_MASTER_INITIAL = "UNM";
+    public static String MENU_TYPE_MASTER_INITIAL = "MTM";
+    public static String DRESS_CODE_MASTER_INITIAL = "DCM";
+    public static String BANK_MASTER_INITIAL = "BNM";
     public static String TAX_MASTER_INITIAL = "TAX";
 
+    // EVENT
+    public static String FUNCTION_MASTER_INITIAL = "FTM";
+    public static String EVENT_PACKAGE_INITIAL = "ENP";
+
     // MENU ORDER
-    public static String MAIN_ORDER_INITIAL = "MO";
-    public static String ADD_ORDER_INITIAL = "AO";
-    public static String ADD_MULTIPLE_ORDER_INITIAL = "AM";
+    public static String MAIN_ORDER_INITIAL = "MNO";
+    public static String ADD_ORDER_INITIAL = "ADO";
+    public static String ADD_MULTIPLE_ORDER_INITIAL = "ADM";
 
     // UTILITY
     public static String COMPANY_SETTING_INITIAL = "CM";
@@ -133,7 +139,7 @@ public class Constants {
     public static String OPB_INITIAL = "OPB";
 
     /* OTHER CONSTANTS: Start */
-    public static String NO_TAX = "T000001";
+    public static String NO_TAX = "TAX00001";
     public static String SELECT_DATE = "SELECT DATE";
     public static String HOME_PAGE = "HOME PAGE";
     public static String COVER_PRINT = "COVER PRINT";
