@@ -53,6 +53,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import master.BankMaster;
+import master.FinishItemCommon;
 import reports.AccountMasterList;
 import reports.CheckPrintList;
 import support.Constants;
@@ -1352,11 +1353,11 @@ public class DeskFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnRawMaterialRMActionPerformed
 
     private void jmnMainCategoryFIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMainCategoryFIActionPerformed
-        
+        initFinishItemCommonFrame(Constants.Tables.FINISH_ITEM);
     }//GEN-LAST:event_jmnMainCategoryFIActionPerformed
 
     private void jmnFoodTypeFIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnFoodTypeFIActionPerformed
-        
+        initFinishItemCommonFrame(Constants.Tables.FOOD_TYPE);
     }//GEN-LAST:event_jmnFoodTypeFIActionPerformed
 
     private void jmnFinishMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnFinishMaterialActionPerformed
@@ -1378,6 +1379,22 @@ public class DeskFrame extends javax.swing.JFrame {
     private void jmnOrderListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnOrderListActionPerformed
         
     }//GEN-LAST:event_jmnOrderListActionPerformed
+
+    private void initFinishItemCommonFrame(Constants.Tables table) {
+        int index = checkAlradyOpen(table.FRAME_TITLE);
+        if (index == -1) {
+            FinishItemCommon finishItemCommon;
+            try {
+               finishItemCommon = new FinishItemCommon(table);
+               addOnScreen(finishItemCommon, table.FRAME_TITLE);
+               finishItemCommon.setTitle(table.FRAME_TITLE);
+            } catch (Exception e) {
+                lb.printToLogFile("Exception while opening tab " +table.FRAME_TITLE+ " In DeskFrame...", e);
+            }
+        } else {
+            tabbedPane.setSelectedIndex(index);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane1;
