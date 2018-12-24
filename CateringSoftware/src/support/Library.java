@@ -887,6 +887,44 @@ public class Library {
         return returnVal;
     }
 
+    // Return main category and sub category name or id
+    public String getRawMainCategory(String strVal, String tag, String category) {
+        PreparedStatement pstLocal = null;
+        ResultSet rsLocal = null;
+        String returnVal = "";
+        String sql = "";
+        if (strVal.trim().equalsIgnoreCase("") && tag.equalsIgnoreCase("C")) {
+            return "";
+        }
+        try {
+            if(category.equalsIgnoreCase("main")) {
+                if (tag.equalsIgnoreCase("C")) {
+                    sql = "SELECT id FROM raw_material_main WHERE name_en='"+ strVal +"'";
+                } else if (tag.equalsIgnoreCase("N")) {
+                    sql = "SELECT name_en FROM raw_material_main WHERE id='"+ strVal +"'";
+                }
+            } else if (category.equalsIgnoreCase("sub")) {
+                if (tag.equalsIgnoreCase("C")) {
+                    sql = "SELECT id FROM raw_material_sub WHERE name_en='"+ strVal +"'";
+                } else if (tag.equalsIgnoreCase("N")) {
+                    sql = "SELECT name_en FROM raw_material_sub WHERE id='"+ strVal +"'";
+                }
+            }
+            if (sql != null) {
+                pstLocal = dataConnection.prepareStatement(sql);
+                rsLocal = pstLocal.executeQuery();
+                while (rsLocal.next()) {
+                    returnVal = rsLocal.getString(1);
+                }
+                closeResultSet(rsLocal);
+                closeStatement(pstLocal);
+            }
+        } catch (Exception ex) {
+            printToLogFile("Exception at getRawMainCategory In Library", ex);
+        }
+        return returnVal;
+    }
+    
     public String getData(String query) {
         String data = "";
         PreparedStatement pstLocal = null;

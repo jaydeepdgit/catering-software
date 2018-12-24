@@ -54,6 +54,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import master.BankMaster;
 import master.FinishItemCommon;
+import master.RawMainCategory;
+import master.RawSubCategory;
 import reports.AccountMasterList;
 import reports.CheckPrintList;
 import support.Constants;
@@ -522,7 +524,7 @@ public class DeskFrame extends javax.swing.JFrame {
             Border b1 = new LineBorder(Color.darkGray, 5) {
             };
             boolean flag = true;
-            if (inFrame instanceof ChangePassword || inFrame instanceof ManageUserView || inFrame instanceof CompanySetting || inFrame instanceof TaxMaster || inFrame instanceof AccountType || inFrame instanceof AccountMaster || inFrame instanceof UnitMaster || inFrame instanceof ManageEmail || inFrame instanceof QuickOpen || inFrame instanceof BankMaster || inFrame instanceof CheckPrint) {
+            if (inFrame instanceof ChangePassword || inFrame instanceof ManageUserView || inFrame instanceof CompanySetting || inFrame instanceof TaxMaster || inFrame instanceof AccountType || inFrame instanceof AccountMaster || inFrame instanceof UnitMaster || inFrame instanceof ManageEmail || inFrame instanceof QuickOpen || inFrame instanceof BankMaster || inFrame instanceof CheckPrint || inFrame instanceof RawMainCategory || inFrame instanceof RawSubCategory) {
                 flag = false;
             }
             if (flag) {
@@ -1341,11 +1343,25 @@ public class DeskFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnAccountListActionPerformed
 
     private void jmnMainCategoryRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMainCategoryRMActionPerformed
-        
+        int index = checkAlradyOpen(Constants.MAIN_CATEGORY_FORM_NAME);
+        if (index == -1) {
+            RawMainCategory am = new RawMainCategory();
+            addOnScreen(am, Constants.MAIN_CATEGORY_FORM_NAME);
+            am.setTitle(Constants.MAIN_CATEGORY_FORM_NAME);
+        } else {
+            tabbedPane.setSelectedIndex(index);
+        }        
     }//GEN-LAST:event_jmnMainCategoryRMActionPerformed
 
     private void jmnSubCategoryRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnSubCategoryRMActionPerformed
-        
+        int index = checkAlradyOpen(Constants.SUB_CATEGORY_FORM_NAME);
+        if (index == -1) {
+            RawSubCategory am = new RawSubCategory();
+            addOnScreen(am, Constants.SUB_CATEGORY_FORM_NAME);
+            am.setTitle(Constants.SUB_CATEGORY_FORM_NAME);
+        } else {
+            tabbedPane.setSelectedIndex(index);
+        }
     }//GEN-LAST:event_jmnSubCategoryRMActionPerformed
 
     private void jmnRawMaterialRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRawMaterialRMActionPerformed

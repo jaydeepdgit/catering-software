@@ -38,6 +38,8 @@ import master.AccountType;
 import master.TaxMaster;
 import master.UnitMaster;
 import cateringsoftware.DeskFrame;
+import master.RawMainCategory;
+import master.RawSubCategory;
 import utility.CheckPrint;
 
 /**
@@ -99,6 +101,10 @@ public class HeaderIntFrame1 extends JInternalFrame {
             ((UnitMaster) form).setID(Integer.parseInt(strCode));
         } else if (docCd.equalsIgnoreCase(Constants.CHECK_PRINT_FORM_ID)) {
             ((CheckPrint) form).setID(strCode);
+        } else if (docCd.equalsIgnoreCase(Constants.MAIN_CATEGORY_RW_FORM_ID)) {
+            ((RawMainCategory) form).setID(strCode);
+        } else if (docCd.equalsIgnoreCase(Constants.SUB_CATEGORY_RW_FORM_ID)) {
+            ((RawSubCategory) form).setID(strCode);
         }
     }
 
