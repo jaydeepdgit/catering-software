@@ -33,9 +33,6 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
     private ReportTable viewTable = null;
     PickList rawMaincategoryList = null;
 
-    /**
-     * Creates new form RawMainCategory
-     */
     public RawSubCategory() {
         initComponents();
         connectNavigation();
@@ -58,7 +55,7 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
     private void setPickListView() {
         rawMaincategoryList.setLayer(getLayeredPane());
         rawMaincategoryList.setPickListComponent(jtxtMain);
-        rawMaincategoryList.setNextComponent(jtxtGuj);
+        rawMaincategoryList.setNextComponent(jcmbStatus);
         rawMaincategoryList.setReturnComponent(new JTextField[]{jtxtMain});
     }
     
@@ -308,28 +305,32 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
 
             @Override
             public void callDelete() {
-                lb.confirmDialog(Constants.DELETE_RECORD);
-                if (lb.type) {
-                    try {
-                        dataConnection.setAutoCommit(false);
-                        String sql = "DELETE FROM raw_material_sub WHERE id = ?";
-                        PreparedStatement pstLocal = dataConnection.prepareStatement(sql);
-                        pstLocal.setString(1, id);
-                        pstLocal.executeUpdate();
-                        setVoucher("Previous");
-                        dataConnection.commit();
-                        dataConnection.setAutoCommit(true);
-                    } catch (Exception ex) {
-                        lb.printToLogFile("Exception at callDelete In Raw Sub Category", ex);
+                if (lb.getData("id", "raw_material", "fk_raw_material_sub_id", id).equalsIgnoreCase("")) {
+                    lb.confirmDialog(Constants.DELETE_RECORD);
+                    if (lb.type) {
                         try {
-                            dataConnection.rollback();
+                            dataConnection.setAutoCommit(false);
+                            String sql = "DELETE FROM raw_material_sub WHERE id = ?";
+                            PreparedStatement pstLocal = dataConnection.prepareStatement(sql);
+                            pstLocal.setString(1, id);
+                            pstLocal.executeUpdate();
+                            setVoucher("Previous");
+                            dataConnection.commit();
                             dataConnection.setAutoCommit(true);
-                        } catch (Exception ex1) {
-                            lb.printToLogFile("Exception at rollback callDelete In Raw Sub Category", ex1);
+                        } catch (Exception ex) {
+                            lb.printToLogFile("Exception at callDelete In Raw Sub Category", ex);
+                            try {
+                                dataConnection.rollback();
+                                dataConnection.setAutoCommit(true);
+                            } catch (Exception ex1) {
+                                lb.printToLogFile("Exception at rollback callDelete In Raw Sub Category", ex1);
+                            }
                         }
+                    } else {
+                        navLoad.setSaveFocus();
                     }
-                } else {
-                    navLoad.setSaveFocus();
+                }   else {
+                    navLoad.setMessage("Category is used in other forms.You can not delete this group");
                 }
             }
 
@@ -392,7 +393,7 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
                 jtxtID.setEnabled(!flag);
                 jtxtName.setEnabled(flag);
                 jtxtMain.setEnabled(flag);
-                jtxtGuj.setEditable(flag);
+                jtxtGuj.setEnabled(flag);
                 jtxtHindi.setEnabled(flag);
                 jcmbStatus.setEnabled(flag);
             }
@@ -522,7 +523,7 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("Main Category");
 
-        jtxtMain.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jtxtMain.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jtxtMain.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 0, 0)));
         jtxtMain.setMinimumSize(new java.awt.Dimension(6, 25));
         jtxtMain.setName(""); // NOI18N
@@ -548,7 +549,6 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
         jLabel9.setText("Gujarati Name");
 
         jtxtGuj.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
@@ -577,7 +577,6 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 0, 0));
         jLabel10.setText("Hindi Name");
 
         jtxtHindi.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
@@ -615,73 +614,66 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtxtName, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jtxtMain, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGap(24, 24, 24)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlblLstUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jlblEditNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jcmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jtxtHindi, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jtxtGuj, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(254, Short.MAX_VALUE))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxtHindi, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtMain, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtGuj, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtName, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(269, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlblLstUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlblEditNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(247, 247, 247))))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel2, jLabel4, jLabel5});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel2, jLabel3, jLabel4, jLabel5, jLabel9});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jcmbStatus, jtxtGuj, jtxtHindi, jtxtMain, jtxtName});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtGuj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtHindi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtGuj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtHindi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -702,7 +694,7 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel8, jlblLstUpdate});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel2, jtxtName});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel10, jLabel2, jLabel3, jLabel5, jLabel9, jcmbStatus, jtxtGuj, jtxtHindi, jtxtMain, jtxtName});
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel4, jtxtID});
 
@@ -773,7 +765,7 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcmbStatusKeyPressed
 
     private void jtxtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNameKeyPressed
-        lb.enterEvent(evt, jtxtMain);
+        lb.enterEvent(evt, jtxtGuj);
     }//GEN-LAST:event_jtxtNameKeyPressed
 
     private void jtxtMainFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtMainFocusGained
@@ -795,13 +787,13 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
 
     private void jtxtMainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMainKeyReleased
         try {
-        PreparedStatement pstLocal = dataConnection.prepareStatement("SELECT name_en FROM raw_material_main WHERE name_en LIKE '%" + jtxtMain.getText().toUpperCase() + "%' AND fk_status_id = 1");
-        rawMaincategoryList.setPreparedStatement(pstLocal);
-        rawMaincategoryList.setValidation(dataConnection.prepareStatement("SELECT name_en FROM raw_material_main WHERE fk_status_id = 1 AND name_en = ?"));
-        rawMaincategoryList.pickListKeyRelease(evt);
-    } catch (Exception ex) {
-        lb.printToLogFile("Exception at jtxtMainKeyReleased In Raw Sub Category", ex);
-    }
+            PreparedStatement pstLocal = dataConnection.prepareStatement("SELECT name_en FROM raw_material_main WHERE name_en LIKE '%" + jtxtMain.getText().toUpperCase() + "%' AND fk_status_id = 1");
+            rawMaincategoryList.setPreparedStatement(pstLocal);
+            rawMaincategoryList.setValidation(dataConnection.prepareStatement("SELECT name_en FROM raw_material_main WHERE fk_status_id = 1 AND name_en = ?"));
+            rawMaincategoryList.pickListKeyRelease(evt);
+        } catch (Exception ex) {
+            lb.printToLogFile("Exception at jtxtMainKeyReleased In Raw Sub Category", ex);
+        }
     }//GEN-LAST:event_jtxtMainKeyReleased
 
     private void jtxtGujFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtGujFocusGained
@@ -833,7 +825,7 @@ public class RawSubCategory extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtxtHindiFocusLost
 
     private void jtxtHindiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHindiKeyPressed
-        lb.enterEvent(evt, jcmbStatus);
+        lb.enterEvent(evt, jtxtMain);
     }//GEN-LAST:event_jtxtHindiKeyPressed
 
     private void jtxtHindiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHindiKeyReleased

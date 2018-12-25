@@ -39,6 +39,7 @@ import master.TaxMaster;
 import master.UnitMaster;
 import cateringsoftware.DeskFrame;
 import master.RawMainCategory;
+import master.RawMaterialMaster;
 import master.RawSubCategory;
 import utility.CheckPrint;
 
@@ -105,6 +106,8 @@ public class HeaderIntFrame1 extends JInternalFrame {
             ((RawMainCategory) form).setID(strCode);
         } else if (docCd.equalsIgnoreCase(Constants.SUB_CATEGORY_RW_FORM_ID)) {
             ((RawSubCategory) form).setID(strCode);
+        } else if (docCd.equalsIgnoreCase(Constants.RAW_MATERIAL_RW_FORM_ID)) {
+            ((RawMaterialMaster) form).setID(strCode);
         }
     }
 

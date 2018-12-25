@@ -55,6 +55,7 @@ import javax.swing.JPasswordField;
 import master.BankMaster;
 import master.FinishItemCommon;
 import master.RawMainCategory;
+import master.RawMaterialMaster;
 import master.RawSubCategory;
 import reports.AccountMasterList;
 import reports.CheckPrintList;
@@ -524,7 +525,7 @@ public class DeskFrame extends javax.swing.JFrame {
             Border b1 = new LineBorder(Color.darkGray, 5) {
             };
             boolean flag = true;
-            if (inFrame instanceof ChangePassword || inFrame instanceof ManageUserView || inFrame instanceof CompanySetting || inFrame instanceof TaxMaster || inFrame instanceof AccountType || inFrame instanceof AccountMaster || inFrame instanceof UnitMaster || inFrame instanceof ManageEmail || inFrame instanceof QuickOpen || inFrame instanceof BankMaster || inFrame instanceof CheckPrint || inFrame instanceof RawMainCategory || inFrame instanceof RawSubCategory) {
+            if (inFrame instanceof ChangePassword || inFrame instanceof ManageUserView || inFrame instanceof CompanySetting || inFrame instanceof TaxMaster || inFrame instanceof AccountType || inFrame instanceof AccountMaster || inFrame instanceof UnitMaster || inFrame instanceof ManageEmail || inFrame instanceof QuickOpen || inFrame instanceof BankMaster || inFrame instanceof CheckPrint || inFrame instanceof RawMainCategory || inFrame instanceof RawSubCategory ||inFrame instanceof RawMaterialMaster) {
                 flag = false;
             }
             if (flag) {
@@ -1365,7 +1366,14 @@ public class DeskFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnSubCategoryRMActionPerformed
 
     private void jmnRawMaterialRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRawMaterialRMActionPerformed
-        
+        int index = checkAlradyOpen(Constants.RAW_MATERIAL_FORM_NAME);
+        if (index == -1) {
+            RawMaterialMaster am = new RawMaterialMaster();
+            addOnScreen(am, Constants.RAW_MATERIAL_FORM_NAME);
+            am.setTitle(Constants.RAW_MATERIAL_FORM_NAME);
+        } else {
+            tabbedPane.setSelectedIndex(index);
+        }
     }//GEN-LAST:event_jmnRawMaterialRMActionPerformed
 
     private void jmnMainCategoryFIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMainCategoryFIActionPerformed
