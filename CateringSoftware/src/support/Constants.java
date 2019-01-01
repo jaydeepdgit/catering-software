@@ -9,6 +9,30 @@ package support;
  * @author JD
  */
 public class Constants {
+
+    /*
+     * To idenfity small size of frames
+     */
+    public static final java.util.List<Class> SMALL_SIZE_FRAMES = new java.util.ArrayList<>();
+
+    static {
+        SMALL_SIZE_FRAMES.add(utility.ChangePassword.class);
+        SMALL_SIZE_FRAMES.add(utility.ManageUserView.class);
+        SMALL_SIZE_FRAMES.add(utility.CompanySetting.class);
+        SMALL_SIZE_FRAMES.add(master.TaxMaster.class);
+        SMALL_SIZE_FRAMES.add(master.AccountType.class);
+        SMALL_SIZE_FRAMES.add(master.AccountMaster.class);
+        SMALL_SIZE_FRAMES.add(master.UnitMaster.class);
+        SMALL_SIZE_FRAMES.add(utility.ManageEmail.class);
+        SMALL_SIZE_FRAMES.add(utility.QuickOpen.class);
+        SMALL_SIZE_FRAMES.add(master.BankMaster.class);
+        SMALL_SIZE_FRAMES.add(utility.CheckPrint.class);
+        SMALL_SIZE_FRAMES.add(master.RawMainCategory.class);
+        SMALL_SIZE_FRAMES.add(master.RawSubCategory.class);
+        SMALL_SIZE_FRAMES.add(master.RawMaterialMaster.class);
+        SMALL_SIZE_FRAMES.add(master.FinishItemCommon.class);
+    }
+
     /* form id - start */
     // MASTER
     public static final String ACCOUNT_TYPE_FORM_ID = "1";
@@ -27,7 +51,7 @@ public class Constants {
     public static final String TAX_MASTER_FORM_ID = "14";
 
     // EVENT
-    public static final String FUNCTION_MASTER_FORM_ID = "61";
+    public static final String EVENT_CATEGORY_FORM_ID = "61";
     public static final String EVENT_PACKAGE_FORM_ID = "62";
 
     // MENU ORDER
@@ -79,7 +103,7 @@ public class Constants {
 
 
     // EVENT
-    public static final String FUNCTION_MASTER_FORM_NAME = "FUNCTION MASTER";
+    public static final String EVENT_CATEGORY_FORM_NAME = "EVENT CATEGORY";
     public static final String EVENT_PACKAGE_FORM_NAME = "EVENT PACKAGE";
 
     // MENU ORDER

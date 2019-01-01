@@ -222,12 +222,12 @@ public class DeskFrame extends javax.swing.JFrame {
         jmnTimeMaster.setText(Constants.TIME_MASTER_FORM_NAME);
         jmnUnitMaster.setText(Constants.UNIT_MASTER_FORM_NAME);
         jmnMenuTypeMaster.setText(Constants.MENU_TYPE_MASTER_FORM_NAME);
-        jmnDressCodeMaster.setText(Constants.DRESS_CODE_MASTER_FORM_ID);
+        jmnDressCodeMaster.setText(Constants.DRESS_CODE_MASTER_FORM_NAME);
         jmnBankMaster.setText(Constants.BANK_MASTER_FORM_NAME);
         jmnTaxMaster.setText(Constants.TAX_MASTER_FORM_NAME);
 
         // EVENT
-        jmnFunctionMaster.setText(Constants.FUNCTION_MASTER_FORM_NAME);
+        jmnEventCategory.setText(Constants.EVENT_CATEGORY_FORM_NAME);
         jmnEventPackage.setText(Constants.EVENT_PACKAGE_FORM_NAME);
 
         // REPORT
@@ -394,7 +394,7 @@ public class DeskFrame extends javax.swing.JFrame {
         hashMenu.put(Integer.parseInt(Constants.TAX_MASTER_FORM_ID), jmnTaxMaster);
 
         // EVENT
-        hashMenu.put(Integer.parseInt(Constants.FUNCTION_MASTER_FORM_ID), jmnFunctionMaster);
+        hashMenu.put(Integer.parseInt(Constants.EVENT_CATEGORY_FORM_ID), jmnEventCategory);
         hashMenu.put(Integer.parseInt(Constants.EVENT_PACKAGE_FORM_ID), jmnEventPackage);
 
         // MENU ORDER
@@ -524,10 +524,7 @@ public class DeskFrame extends javax.swing.JFrame {
             ((javax.swing.plaf.basic.BasicInternalFrameUI) ifu).setNorthPane(null);
             Border b1 = new LineBorder(Color.darkGray, 5) {
             };
-            boolean flag = true;
-            if (inFrame instanceof ChangePassword || inFrame instanceof ManageUserView || inFrame instanceof CompanySetting || inFrame instanceof TaxMaster || inFrame instanceof AccountType || inFrame instanceof AccountMaster || inFrame instanceof UnitMaster || inFrame instanceof ManageEmail || inFrame instanceof QuickOpen || inFrame instanceof BankMaster || inFrame instanceof CheckPrint || inFrame instanceof RawMainCategory || inFrame instanceof RawSubCategory ||inFrame instanceof RawMaterialMaster) {
-                flag = false;
-            }
+            boolean flag = !Constants.SMALL_SIZE_FRAMES.contains(inFrame.getClass());
             if (flag) {
                 inFrame.setLocation(0, 0);
                 inFrame.setSize(jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
@@ -593,7 +590,7 @@ public class DeskFrame extends javax.swing.JFrame {
         jmnBankMaster = new javax.swing.JMenuItem();
         jmnTaxMaster = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jmnFunctionMaster = new javax.swing.JMenuItem();
+        jmnEventCategory = new javax.swing.JMenuItem();
         jmnEventPackage = new javax.swing.JMenuItem();
         menuorder = new javax.swing.JMenu();
         jmnMainOrder = new javax.swing.JMenuItem();
@@ -849,10 +846,15 @@ public class DeskFrame extends javax.swing.JFrame {
         jMenu1.setText("EVENT");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jmnFunctionMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jmnFunctionMaster.setMnemonic('F');
-        jmnFunctionMaster.setText("FUNCTION MASTER");
-        jMenu1.add(jmnFunctionMaster);
+        jmnEventCategory.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jmnEventCategory.setMnemonic('F');
+        jmnEventCategory.setText("EVENT CATEGORY");
+        jmnEventCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnEventCategoryActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmnEventCategory);
 
         jmnEventPackage.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jmnEventPackage.setMnemonic('E');
@@ -1404,6 +1406,10 @@ public class DeskFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmnOrderListActionPerformed
 
+    private void jmnEventCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnEventCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmnEventCategoryActionPerformed
+
     private void initFinishItemCommonFrame(Constants.Tables table) {
         int index = checkAlradyOpen(table.FRAME_TITLE);
         if (index == -1) {
@@ -1440,12 +1446,12 @@ public class DeskFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmnCompanySetting;
     private javax.swing.JMenuItem jmnDressCodeMaster;
     private javax.swing.JMenuItem jmnEmail;
+    private javax.swing.JMenuItem jmnEventCategory;
     private javax.swing.JMenuItem jmnEventPackage;
     private javax.swing.JMenuItem jmnExit;
     private javax.swing.JMenu jmnFinishItemMain;
     private javax.swing.JMenuItem jmnFinishMaterial;
     private javax.swing.JMenuItem jmnFoodTypeFI;
-    private javax.swing.JMenuItem jmnFunctionMaster;
     private javax.swing.JMenuItem jmnLogin;
     private javax.swing.JMenuItem jmnLogout;
     private javax.swing.JMenuItem jmnMainCategoryFI;

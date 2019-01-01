@@ -38,6 +38,7 @@ import master.AccountType;
 import master.TaxMaster;
 import master.UnitMaster;
 import cateringsoftware.DeskFrame;
+import master.FinishItemCommon;
 import master.RawMainCategory;
 import master.RawMaterialMaster;
 import master.RawSubCategory;
@@ -108,6 +109,9 @@ public class HeaderIntFrame1 extends JInternalFrame {
             ((RawSubCategory) form).setID(strCode);
         } else if (docCd.equalsIgnoreCase(Constants.RAW_MATERIAL_RW_FORM_ID)) {
             ((RawMaterialMaster) form).setID(strCode);
+        } else if (docCd.equalsIgnoreCase(Constants.Tables.FINISH_ITEM.FORM_ID) || 
+                docCd.equalsIgnoreCase(Constants.Tables.FOOD_TYPE.FORM_ID)) {
+            ((FinishItemCommon) form).setID(strCode);
         }
     }
 
