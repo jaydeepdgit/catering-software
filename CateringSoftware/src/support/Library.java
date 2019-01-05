@@ -3000,4 +3000,32 @@ public class Library {
         }
         return ans;
     }
+    public String getFunctionData(String strVal, String tag) {
+        PreparedStatement pstLocal = null;
+        ResultSet rsLocal = null;
+        String returnVal = "";
+        String sql = "";
+        if (strVal.trim().equalsIgnoreCase("") && tag.equalsIgnoreCase("C")) {
+            return "0";
+        }
+        try {
+            if (tag.equalsIgnoreCase("C")) {
+                sql = "SELECT id FROM function_master WHERE name_en = '"+ strVal +"'";
+            } else if (tag.equalsIgnoreCase("N")) {
+                sql = "SELECT name_en FROM function_master WHERE id = '"+ strVal +"'";
+            }
+            if (sql != null) {
+                pstLocal = dataConnection.prepareStatement(sql);
+                rsLocal = pstLocal.executeQuery();
+                while (rsLocal.next()) {
+                    returnVal = rsLocal.getString(1);
+                }
+                closeResultSet(rsLocal);
+                closeStatement(pstLocal);
+            }
+        } catch (Exception ex) {
+            printToLogFile("Exception at getFunctionData In Library", ex);
+        }
+        return returnVal;
+    }
 }

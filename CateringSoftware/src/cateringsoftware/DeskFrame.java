@@ -54,6 +54,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import master.BankMaster;
 import master.FinishItemCommon;
+import master.FunctionMaster;
 import master.RawMainCategory;
 import master.RawMaterialMaster;
 import master.RawSubCategory;
@@ -225,6 +226,7 @@ public class DeskFrame extends javax.swing.JFrame {
         jmnDressCodeMaster.setText(Constants.DRESS_CODE_MASTER_FORM_NAME);
         jmnBankMaster.setText(Constants.BANK_MASTER_FORM_NAME);
         jmnTaxMaster.setText(Constants.TAX_MASTER_FORM_NAME);
+        jmnFunctionMaster.setText(Constants.FUNCTION_MASTER_FORM_NAME);
 
         // EVENT
         jmnEventCategory.setText(Constants.EVENT_CATEGORY_FORM_NAME);
@@ -392,6 +394,7 @@ public class DeskFrame extends javax.swing.JFrame {
         hashMenu.put(Integer.parseInt(Constants.DRESS_CODE_MASTER_FORM_ID), jmnDressCodeMaster);
         hashMenu.put(Integer.parseInt(Constants.BANK_MASTER_FORM_ID), jmnBankMaster);
         hashMenu.put(Integer.parseInt(Constants.TAX_MASTER_FORM_ID), jmnTaxMaster);
+        hashMenu.put(Integer.parseInt(Constants.FUNCTION_MASTER_FORM_ID), jmnFunctionMaster);
 
         // EVENT
         hashMenu.put(Integer.parseInt(Constants.EVENT_CATEGORY_FORM_ID), jmnEventCategory);
@@ -589,6 +592,7 @@ public class DeskFrame extends javax.swing.JFrame {
         jmnDressCodeMaster = new javax.swing.JMenuItem();
         jmnBankMaster = new javax.swing.JMenuItem();
         jmnTaxMaster = new javax.swing.JMenuItem();
+        jmnFunctionMaster = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmnEventCategory = new javax.swing.JMenuItem();
         jmnEventPackage = new javax.swing.JMenuItem();
@@ -839,6 +843,18 @@ public class DeskFrame extends javax.swing.JFrame {
             }
         });
         master.add(jmnTaxMaster);
+
+        jmnFunctionMaster.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jmnFunctionMaster.setText("FUNTION MASTER");
+        jmnFunctionMaster.setToolTipText("");
+        jmnFunctionMaster.setActionCommand("FUNTION MASTER");
+        jmnFunctionMaster.setDisplayedMnemonicIndex(0);
+        jmnFunctionMaster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnFunctionMasterActionPerformed(evt);
+            }
+        });
+        master.add(jmnFunctionMaster);
 
         jMenuBar1.add(master);
 
@@ -1410,6 +1426,17 @@ public class DeskFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmnEventCategoryActionPerformed
 
+    private void jmnFunctionMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnFunctionMasterActionPerformed
+        int index = checkAlradyOpen(Constants.FUNCTION_MASTER_FORM_NAME);
+        if (index == -1) {
+            FunctionMaster fm = new FunctionMaster();
+            addOnScreen(fm, Constants.FUNCTION_MASTER_FORM_NAME);
+            fm.setTitle(Constants.FUNCTION_MASTER_FORM_NAME);
+        } else {
+            tabbedPane.setSelectedIndex(index);
+        }
+    }//GEN-LAST:event_jmnFunctionMasterActionPerformed
+
     private void initFinishItemCommonFrame(Constants.Tables table) {
         int index = checkAlradyOpen(table.FRAME_TITLE);
         if (index == -1) {
@@ -1452,6 +1479,7 @@ public class DeskFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jmnFinishItemMain;
     private javax.swing.JMenuItem jmnFinishMaterial;
     private javax.swing.JMenuItem jmnFoodTypeFI;
+    private javax.swing.JMenuItem jmnFunctionMaster;
     private javax.swing.JMenuItem jmnLogin;
     private javax.swing.JMenuItem jmnLogout;
     private javax.swing.JMenuItem jmnMainCategoryFI;

@@ -31,6 +31,7 @@ public class Constants {
         SMALL_SIZE_FRAMES.add(master.RawSubCategory.class);
         SMALL_SIZE_FRAMES.add(master.RawMaterialMaster.class);
         SMALL_SIZE_FRAMES.add(master.FinishItemCommon.class);
+        SMALL_SIZE_FRAMES.add(master.FunctionMaster.class);
     }
 
     /* form id - start */
@@ -49,6 +50,7 @@ public class Constants {
     public static final String DRESS_CODE_MASTER_FORM_ID = "12";
     public static final String BANK_MASTER_FORM_ID = "13";
     public static final String TAX_MASTER_FORM_ID = "14";
+    public static final String FUNCTION_MASTER_FORM_ID = "15";
 
     // EVENT
     public static final String EVENT_CATEGORY_FORM_ID = "61";
@@ -100,7 +102,7 @@ public class Constants {
     public static final String DRESS_CODE_MASTER_FORM_NAME = "DRESS CODE MASTER";
     public static final String BANK_MASTER_FORM_NAME = "BANK MASTER";
     public static final String TAX_MASTER_FORM_NAME = "TAX MASTER";
-
+    public static final String FUNCTION_MASTER_FORM_NAME = "FUNCTION MASTER";
 
     // EVENT
     public static final String EVENT_CATEGORY_FORM_NAME = "EVENT CATEGORY";
