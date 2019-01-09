@@ -32,6 +32,7 @@ public class Constants {
         SMALL_SIZE_FRAMES.add(master.RawMaterialMaster.class);
         SMALL_SIZE_FRAMES.add(master.FinishItemCommon.class);
         SMALL_SIZE_FRAMES.add(master.FunctionMaster.class);
+        SMALL_SIZE_FRAMES.add(master.FinishMaterial.class);
     }
 
     /* form id - start */
@@ -153,6 +154,7 @@ public class Constants {
     // EVENT
     public static final String FUNCTION_MASTER_INITIAL = "FTM";
     public static final String EVENT_PACKAGE_INITIAL = "ENP";
+    public static final String EVENT_CATEGORY_INITIAL = "ENC";
 
     // MENU ORDER
     public static final String MAIN_ORDER_INITIAL = "MNO";
@@ -216,7 +218,9 @@ public class Constants {
 
 	public enum Tables {
 		FINISH_ITEM("finish_item_main", FINISH_ITEM_MAIN_CATEGORY_FORM_NAME, MAIN_CATEGORY_FI_INITIAL, MAIN_CATEGORY_FI_FORM_ID),
-		FOOD_TYPE("food_type", FOOD_TYPE_FORM_NAME, FINSH_FOOD_TYPE_INITIAL, FOOD_TYPE_FI_FORM_ID);
+		FOOD_TYPE("food_type", FOOD_TYPE_FORM_NAME, FINSH_FOOD_TYPE_INITIAL, FOOD_TYPE_FI_FORM_ID),
+		EVENT_CATEGORY("event_category", EVENT_CATEGORY_FORM_NAME, EVENT_CATEGORY_INITIAL, EVENT_CATEGORY_FORM_ID),
+		FINISH_MATERIAL("finish_material_head", FINISH_MATERIAL_FORM_NAME, FINISH_MATERIAL_INITIAL, FINISH_MATERIAL_FI_FORM_ID);
 		final public String NAME, FRAME_TITLE, PREFIX, FORM_ID;
 			Tables(String tableName, String frameTitle, String prefix, String formId) {
 			this.NAME = tableName;

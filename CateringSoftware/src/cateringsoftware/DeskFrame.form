@@ -296,7 +296,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="FUNTION MASTER"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
-                <Property name="actionCommand" type="java.lang.String" value="FUNTION MASTER"/>
                 <Property name="displayedMnemonicIndex" type="int" value="0"/>
               </Properties>
               <Events>

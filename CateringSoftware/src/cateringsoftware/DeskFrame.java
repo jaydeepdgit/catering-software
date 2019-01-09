@@ -54,6 +54,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import master.BankMaster;
 import master.FinishItemCommon;
+import master.FinishMaterial;
 import master.FunctionMaster;
 import master.RawMainCategory;
 import master.RawMaterialMaster;
@@ -1403,7 +1404,20 @@ public class DeskFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnFoodTypeFIActionPerformed
 
     private void jmnFinishMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnFinishMaterialActionPerformed
-        
+        Constants.Tables table = Constants.Tables.FINISH_MATERIAL;
+        int index = checkAlradyOpen(table.FRAME_TITLE);
+        if (index == -1) {
+            FinishMaterial finishMaerial;
+            try {
+               finishMaerial = new FinishMaterial(table);
+               addOnScreen(finishMaerial, table.FRAME_TITLE);
+               finishMaerial.setTitle(table.FRAME_TITLE);
+            } catch (Exception e) {
+                lb.printToLogFile("Exception while opening tab " +table.FRAME_TITLE+ " In DeskFrame...", e);
+            }
+        } else {
+            tabbedPane.setSelectedIndex(index);
+        }
     }//GEN-LAST:event_jmnFinishMaterialActionPerformed
 
     private void jmnMainOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMainOrderActionPerformed
@@ -1423,7 +1437,7 @@ public class DeskFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnOrderListActionPerformed
 
     private void jmnEventCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnEventCategoryActionPerformed
-        // TODO add your handling code here:
+        initFinishItemCommonFrame(Constants.Tables.EVENT_CATEGORY);
     }//GEN-LAST:event_jmnEventCategoryActionPerformed
 
     private void jmnFunctionMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnFunctionMasterActionPerformed
