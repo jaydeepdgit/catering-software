@@ -59,7 +59,7 @@ public class AccountType extends javax.swing.JInternalFrame {
     private void onViewVoucher() {
         this.dispose();
 
-        String sql = "SELECT name FROM account_type";
+        String sql = "SELECT name_en FROM account_type";
         viewTable.setColumnValue(new int[]{1});
         String view_title = Constants.ACCOUNT_TYPE_FORM_NAME +" VIEW";
 
@@ -109,13 +109,13 @@ public class AccountType extends javax.swing.JInternalFrame {
                     }
                 }
                 if (navLoad.getMode().equalsIgnoreCase("N")) {
-                    if (lb.isExist("account_type", "name", jtxtName.getText(), dataConnection)) {
+                    if (lb.isExist("account_type", "name_en", jtxtName.getText(), dataConnection)) {
                         navLoad.setMessage("Name is already exist!");
                         comp.requestFocusInWindow();
                         return false;
                     }
                 } else if (navLoad.getMode().equalsIgnoreCase("E")) {
-                    if (lb.isExistForEdit("account_type", "name", jtxtName.getText(), "id", String.valueOf(id), dataConnection)) {
+                    if (lb.isExistForEdit("account_type", "name_en", jtxtName.getText(), "id", String.valueOf(id), dataConnection)) {
                         navLoad.setMessage("Name is already exist!");
                         comp.requestFocusInWindow();
                         return false;
@@ -196,14 +196,14 @@ public class AccountType extends javax.swing.JInternalFrame {
             dataConnection.setAutoCommit(false);
             if (navLoad.getMode().equalsIgnoreCase("N")) {
                 id = lb.generateKey("account_type", "id", Constants.ACCOUNT_TYPE_INITIAL, 7);
-                sql = "INSERT INTO account_type(name, user_cd, head, head_grp, fk_status_id = ?, acc_eff, id) " +
+                sql = "INSERT INTO account_type(name_en, user_cd, head, head_grp, fk_status_id = ?, acc_eff, id) " +
                     "VALUES (?, ?, 1, 0, 0, ?)";
             } else if (navLoad.getMode().equalsIgnoreCase("E")) {
-                sql = "UPDATE account_type SET name = ?, user_cd = ?, head_grp = 0, fk_status_id = ?, edit_no = edit_no + 1,"
+                sql = "UPDATE account_type SET name_en = ?, user_cd = ?, head_grp = 0, fk_status_id = ?, edit_no = edit_no + 1,"
                         + "time_stamp = CURRENT_TIMESTAMP WHERE id=?";
             }
             pstLocal = dataConnection.prepareStatement(sql);
-            pstLocal.setString(1, jtxtName.getText().trim().toUpperCase()); // name
+            pstLocal.setString(1, jtxtName.getText().trim().toUpperCase()); // name_en
             pstLocal.setInt(2, DeskFrame.user_id); // user_cd
             pstLocal.setString(3, lb.getStatusData(jcmbStatus.getSelectedItem().toString(), "C")); // fk_status_id
             pstLocal.setString(4, id); // id
@@ -349,7 +349,7 @@ public class AccountType extends javax.swing.JInternalFrame {
                 try {
                     id = viewData.getString("id");
                     jtxtID.setText(id);
-                    jtxtName.setText(viewData.getString("name"));
+                    jtxtName.setText(viewData.getString("name_en"));
                     jcmbStatus.setSelectedItem(lb.getStatusData(viewData.getInt("fk_status_id")+"", "N"));
                     jlblUserName.setText(lb.getUserName(viewData.getString("user_cd"), "N"));
                     jlblEditNo.setText(viewData.getString("edit_no"));

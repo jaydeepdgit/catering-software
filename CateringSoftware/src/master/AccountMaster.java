@@ -123,7 +123,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
     private void onViewVoucher() {
         this.dispose();
 
-        String sql = "SELECT a.name, g.name, CAST(a.opening_rs AS DECIMAL(15,2)) AS opening_rs, CASE WHEN account_effect_rs='0' THEN 'DR' ELSE 'CR' END AS rs FROM account_master a, account_type g WHERE a.fk_account_type_id = g.id";
+        String sql = "SELECT a.name_en, g.name_en, CAST(a.opening_rs AS DECIMAL(15,2)) AS opening_rs, CASE WHEN account_effect_rs='0' THEN 'DR' ELSE 'CR' END AS rs FROM account_master a, account_type g WHERE a.fk_account_type_id = g.id";
         viewTable.setColumnValue(new int[]{1, 2, 3, 4});
         String view_title = Constants.ACCOUNT_MASTER_FORM_NAME +" VIEW";
 
@@ -190,13 +190,13 @@ public class AccountMaster extends javax.swing.JInternalFrame {
                     return false;
                 } else {
                     if (navLoad.getMode().equalsIgnoreCase("E")) {
-                        if (lb.isExistForEdit("account_master", "name", jtxtAccountName.getText(), "id", id, dataConnection)) {
+                        if (lb.isExistForEdit("account_master", "name_en", jtxtAccountName.getText(), "id", id, dataConnection)) {
                             jtxtAccountName.requestFocusInWindow();
                             navLoad.setMessage("Account Name is already exist!");
                             return false;
                         }
                     } else if (navLoad.getMode().equalsIgnoreCase("N")) {
-                        if (lb.isExist("account_master", "name", jtxtAccountName.getText(), dataConnection)) {
+                        if (lb.isExist("account_master", "name_en", jtxtAccountName.getText(), dataConnection)) {
                             jtxtAccountName.requestFocusInWindow();
                             navLoad.setMessage("Account Name is already exist!");
                             return false;
@@ -264,7 +264,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
         String sql = "";
         try {
             if (navLoad.getMode().equalsIgnoreCase("N")) {
-                sql = "INSERT INTO account_master(name, fk_account_type_id, opening_rs, account_effect_rs, maximum_rs, minimum_rs, "+
+                sql = "INSERT INTO account_master(name_en, fk_account_type_id, opening_rs, account_effect_rs, maximum_rs, minimum_rs, "+
                     "reference_by, short_name, contact_person, home_address1, home_address2, office_address1, office_address2, "+
                     "email_id, mobile_no, phone_no, fax_no, gst_no, pan_no, fk_status_id, lock_date, user_cd, edit_no, id) "+
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
@@ -272,14 +272,14 @@ public class AccountMaster extends javax.swing.JInternalFrame {
                 dataConnection.setAutoCommit(false);
             } else if (navLoad.getMode().equalsIgnoreCase("E")) {
                 dataConnection.setAutoCommit(false);
-                sql = "UPDATE account_master SET name = ?, fk_account_type_id = ?, opening_rs = ?, account_effect_rs = ?, "+
+                sql = "UPDATE account_master SET name_en = ?, fk_account_type_id = ?, opening_rs = ?, account_effect_rs = ?, "+
                     "maximum_rs = ?, minimum_rs = ?, reference_by = ?, short_name = ?, contact_person = ?, home_address1 = ?, "+
                     "home_address2 = ?, office_address1 = ?, office_address2 = ?, email_id = ?, mobile_no = ?, phone_no = ?, "+
                     "fax_no = ?, gst_no = ?, pan_no = ?, fk_status_id = ?, lock_date = ?, user_cd = ?, "+
                     "edit_no = edit_no + 1, time_stamp = CURRENT_TIMESTAMP WHERE id = ?";
             }
             PreparedStatement pstLocal = dataConnection.prepareStatement(sql);
-            pstLocal.setString(1, jtxtAccountName.getText().toUpperCase()); // name
+            pstLocal.setString(1, jtxtAccountName.getText().toUpperCase()); // name_en
             pstLocal.setString(2, lb.getAccountType(jtxtAccountType.getText(), "c")); // fk_account_type_id
             pstLocal.setDouble(3, lb.replaceAll(jtxtOPBRs.getText())); // opening_rs
             pstLocal.setString(4, jcmbRs.getSelectedIndex() + ""); // fk_account_type_id
@@ -469,7 +469,7 @@ public class AccountMaster extends javax.swing.JInternalFrame {
                 try {
                     id = viewData.getString("id");
                     jtxtAccountCD.setText(id);
-                    jtxtAccountName.setText(viewData.getString("name"));
+                    jtxtAccountName.setText(viewData.getString("name_en"));
                     jtxtAccountType.setText(lb.getAccountType(viewData.getString("fk_account_type_id"), "N"));
                     jtxtOPBRs.setText(lb.getIndianFormat(viewData.getDouble("opening_rs")));
                     jcmbRs.setSelectedIndex(viewData.getInt("account_effect_rs"));
@@ -1267,9 +1267,9 @@ public class AccountMaster extends javax.swing.JInternalFrame {
 
 private void jtxtAccountTypeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAccountTypeKeyReleased
     try {
-        PreparedStatement pstLocal = dataConnection.prepareStatement("SELECT name FROM account_type WHERE name LIKE '%" + jtxtAccountType.getText().toUpperCase() + "%' AND fk_status_id = 1");
+        PreparedStatement pstLocal = dataConnection.prepareStatement("SELECT name_en FROM account_type WHERE name_en LIKE '%" + jtxtAccountType.getText().toUpperCase() + "%' AND fk_status_id = 1");
         accountTypePickList.setPreparedStatement(pstLocal);
-        accountTypePickList.setValidation(dataConnection.prepareStatement("SELECT name FROM account_type WHERE fk_status_id = 1 AND name = ?"));
+        accountTypePickList.setValidation(dataConnection.prepareStatement("SELECT name_en FROM account_type WHERE fk_status_id = 1 AND name = ?"));
         accountTypePickList.pickListKeyRelease(evt);
     } catch (Exception ex) {
         lb.printToLogFile("Exception at jtxtAccountTypeKeyReleased In Account Master", ex);
